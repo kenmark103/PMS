@@ -1,5 +1,4 @@
-@extends('admin.layout.app')
-
+@extends('admin.main.app')
 @section('content')
 <div class="content-wrapper">
     <section class="content-header">
@@ -13,7 +12,7 @@
     </section>
     <!-- Main content -->
 <section class="content">
-    <!--include('layouts.errors-and-messages')-->
+    @include('shared.errors-and-messages')
     <div class="box">
         <form action="{{ route('admin.employees.store') }}" method="post" class="form">
             <div class="box-body">
@@ -29,24 +28,20 @@
                         <span class="input-group-addon">@</span>
                         <input type="text" name="email" id="email" placeholder="Email" class="form-control" value="{{ old('email') }}">
                     </div>
+                    <div class="form-group">
+                    <label for="phonenumber">Phone Number <span class="text-danger">*</span></label>
+                    <input type="text" name="phonenumber" id="phonenumber" placeholder="phone number" class="form-control" value="{{ old('phone') }}">
+                </div>
                 </div>
                 <div class="form-group">
                     <label for="password">Password <span class="text-danger">*</span></label>
                     <input type="password" name="password" id="password" placeholder="xxxxx" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="status">Status </label>
-                    <select name="status" id="status" class="form-control">
-                        <option value="0">Disable</option>
-                        <option value="1">Enable</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label for="role">Role </label>
                     <select name="role" id="role" class="form-control">
-                        <option value="0">Author</option>
-                        <option value="1">Admin</option>
-                        <option value="2">Super Admin</option>
+                        <option value="1">Superadmin</option>
+                        <option value="2">Care taker</option>
                     </select>
                 </div>
             </div>

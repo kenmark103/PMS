@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
+use App\Models\Apartments;
+use App\Models\Rooms;
+use Auth;
+use App\Models\Admins;
 
 class RoomsController extends Controller
 {
@@ -15,10 +20,42 @@ class RoomsController extends Controller
     public function __construct(){
 
     	$this->middleware('admin');
+
     }
     public function index()
     {
-        //
+
+      $user=Auth::guard('admin')->user();
+      $apartment=$user->apartment;
+    //  dd($apartment);
+
+      if ($user->isSuperAdmin()){
+        $apartments=Apartments::all();
+        return view ('admin.rooms.selectApartment',[
+            'apartments'=>$apartments]);
+      }
+      else{
+        $rooms=$apartment->rooms;
+      }
+        return view('admin.rooms.list',[
+          'apartment'=>$apartment,
+          'rooms'=>$rooms,
+      ]);
+
+
+    }
+
+    public function show($id)
+    {
+      $apartment=Apartments::find($id);
+      $rooms=Rooms::all()
+      ->where('apartments_id',$id);
+
+      return view('admin.rooms.list',[
+        'apartment'=>$apartment,
+        'rooms'=>$rooms,
+    ]);
+
     }
 
     /**
@@ -29,6 +66,17 @@ class RoomsController extends Controller
     public function create()
     {
         //
+        $admin=auth()->guard('admin')->user()->isSuperAdmin();
+        if ($admin) {
+          $apartments=Apartments::all();
+        }
+        else
+        {
+          $apartments=auth()->guard('admin')->user()->apartment;
+        }
+        return view('admin.rooms.create',[
+            'apartments'=>$apartments
+        ]);
     }
 
     /**
@@ -40,6 +88,27 @@ class RoomsController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'apartment'=>'required',
+            'roomnumber'=>'required|unique:rooms,apartments_id',
+            'type'=>'required',
+            'price'=>'required'
+        ]);
+
+        Rooms::create([
+            'apartments_id'=>$request->apartment,
+            'room_no'=>$request->roomnumber,
+            'type'=>$request->type,
+            'price'=>$request->price,
+        ])->save();
+
+        return redirect()->route('admin.rooms.show',
+        $request->apartment)
+        ->with([
+            'success'=>'your room has been added succesfully',
+        ]);
+
+
     }
 
     /**
@@ -48,7 +117,7 @@ class RoomsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showRoom($id)
     {
         //
     }

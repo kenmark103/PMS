@@ -1,5 +1,4 @@
-@extends('admin.layout.app')
-
+@extends('admin.main.app')
 @section('content')
 <div class="content-wrapper">
     <section class="content-header">
@@ -14,7 +13,7 @@
     </section>
     <!-- Main content -->
   <section class="content">
-      <!--include('layouts.errors-and-messages')-->
+      @include('shared.errors-and-messages')
       <!-- Default box -->
       @if($employees)
       <div class="box">
@@ -23,7 +22,6 @@
               <table class="table">
                   <tbody>
                       <tr>
-                          <td class="col-md-1">ID</td>
                           <td class="col-md-3">Name</td>
                           <td class="col-md-3">Email</td>
                           <td class="col-md-1">Status</td>
@@ -34,11 +32,10 @@
                   <tbody>
                   @foreach ($employees as $employee)
                       <tr>
-                          <td>{{ $employee->id }}</td>
-                          <td>{{ $employee->name }}</td>
+                          <td><b>{{ $employee->name }}</b></td>
                           <td>{{ $employee->email }}</td>
-                          <td><!--include('layouts.status', ['status' => $employee->status])--></td>
-                          <td>Admin</td>
+                          <td>Active<!--include('layouts.status', ['status' => $employee->status])--></td>
+                          <td>Super Admin</td>
                           <td>
                               <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="post" class="form-horizontal">
                                   {{ csrf_field() }}

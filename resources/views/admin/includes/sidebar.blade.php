@@ -81,7 +81,7 @@
           <li><a href="#"><i class="fa fa-circle-o"></i>List</a></li>
         </ul>
       </li>
-
+<?php if (auth('admin')->user()->isSuperAdmin()): ?>
       <li class="treeview">
         <a href="">
           <i class="fa fa-laptop"></i>
@@ -91,11 +91,11 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=""><i class="fa fa-circle-o"></i>List</a></li>
-          <li><a href=""><i class="fa fa-circle-o"></i>Create</a></li>
+          <li><a href="{{route('admin.employees.index')}}"><i class="fa fa-circle-o"></i>List</a></li>
+          <li><a href="{{route('admin.employees.create')}}"><i class="fa fa-circle-o"></i>Create</a></li>
         </ul>
       </li>
-
+<?php endif; ?>
       <li><a href=""><i class="fa fa-book"></i> <span>Documentation</span></a></li>
       <li class="header">LABELS</li>
       <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>

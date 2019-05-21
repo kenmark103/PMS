@@ -1,9 +1,8 @@
-@extends('admin.layout.app')
+@extends('admin.main.app')
 @section('content')
 <div class="content-wrapper">
     <section class="content-header">
       <h1>
-
         <small></small>
       </h1>
       <ol class="breadcrumb">

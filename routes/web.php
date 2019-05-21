@@ -32,7 +32,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], 
     Route::namespace('Admin')->group(function () {//add admin routes
     Route::resource('apartments', 'ApartmentsController');
     Route::resource('rooms', 'RoomsController');
-    Route::resource('customers', 'UsersController');
+    Route::resource('customers', 'CustomersController');
     Route::resource('employees', 'EmployeesController');
     Route::resource('bookings', 'BookingsController');
     });

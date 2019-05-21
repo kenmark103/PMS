@@ -41,6 +41,14 @@
                         <input type="file" name="images[]" id="image" class="form-control" multiple>
                         <span class="text-warning">You can use ctr (cmd) to select multiple images</span>
                     </div>
+                    <div class="form-group">
+                      <label for="caretaker">Care taker<span class="text-danger">*</span></label>
+                        <select name="caretaker" id="caretaker" class="form-control">
+                          @foreach($employees as $employee)
+                                <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                            @endforeach
+                    </select>
+                   </div>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

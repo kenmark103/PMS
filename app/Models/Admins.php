@@ -31,5 +31,8 @@ class Admins extends Authenticatable
     public function role(){
       return $this->belongsTo('App\Models\Roles','roles_id');
     }
+    public function isSuperAdmin(){
+      return $this->role()->where('name', 'admin')->exists();
+    }
 
 }

@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('admin.main.app')
 @section('content')
 <div class="content-wrapper">
     <section class="content-header">
@@ -12,7 +12,7 @@
     </section>
     <!-- Main content -->
     <section class="content">
-        <!--include('layouts.errors-and-messages')-->
+        @include('shared.errors-and-messages')
         <div class="box">
             <form action="{{ route('admin.customers.update', $customer->id) }}" method="post" class="form">
                 <div class="box-body">

@@ -1,5 +1,4 @@
-@extends('admin.layout.app')
-
+@extends('admin.main.app')
 @section('content')
 <div class="content-wrapper">
     <section class="content-header">
@@ -14,7 +13,7 @@
     </section>
     <!-- Main content -->
     <section class="content">
-        <!--include('layouts.errors-and-messages')-->
+        @include('shared.errors-and-messages')
         <form action="{{ route('admin.employee.profile.update', $employee->id) }}" method="post" class="form">
             <input type="hidden" name="_method" value="put">
             {{ csrf_field() }}

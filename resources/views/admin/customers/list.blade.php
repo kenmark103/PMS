@@ -1,5 +1,4 @@
-@extends('admin.layout.app')
-
+@extends('admin.main.app')
 @section('content')
 <div class="content-wrapper">
     <section class="content-header">
@@ -13,8 +12,7 @@
     </section>
 <!-- Main content -->
    <section class="content">
-
-   <!--include('layouts.errors-and-messages')-->
+   @include('shared.errors-and-messages')
    <!-- Default box -->
        @if($customers)
            <div class="box">
@@ -24,20 +22,20 @@
                    <table class="table">
                        <tbody>
                        <tr>
-                           <td class="col-md-2">ID</td>
                            <td class="col-md-2">Name</td>
                            <td class="col-md-2">Email</td>
                            <td class="col-md-2">Status</td>
+                           <td class="col-md-2">room</td>
                            <td class="col-md-4">Actions</td>
                        </tr>
                        </tbody>
                        <tbody>
                        @foreach ($customers as $customer)
                            <tr>
-                               <td>{{ $customer['id'] }}</td>
                                <td>{{ $customer['name'] }}</td>
                                <td>{{ $customer['email'] }}</td>
                                <td><!--include('layouts.status', ['status' => $customer['status']])--></td>
+                              <td>404a</td>
                                <td>
                                    <form action="{{ route('admin.customers.destroy', $customer['id']) }}" method="post" class="form-horizontal">
                                        {{ csrf_field() }}

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Admins;
+use App\Models\Apartments;
+use App\Models\Rooms;
+use App\Policies\RoomsPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -13,7 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+         'App\Model' => 'App\Policies\ModelPolicy',
+          Rooms::class => RoomsPolicy::class,
     ];
 
     /**
@@ -26,5 +31,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        Gate::define('view-rooms', function (Admins $user, Apartments $apartment) {
+        return $user->id == $apartment->admins_id;
+    });
     }
 }

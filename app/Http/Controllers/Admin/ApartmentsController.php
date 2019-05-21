@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Shop\Tools\UploadableTrait;
+use Illuminate\Http\UploadedFile;
 use App\Models\Apartments;
 use App\Models\roomImages;
+use App\Models\Admins;
+use Auth;
 
 class ApartmentsController extends Controller
 {
@@ -22,8 +26,9 @@ class ApartmentsController extends Controller
     public function index()
     {
         //
+        $admin=auth()->guard('admin')->user()->isSuperAdmin();
         $aprts=Apartments::all();
-        return view('admin.apartments.list',['apartments'=>$aprts]);
+        return view('admin.apartments.list',['apartments'=>$aprts,'admin'=>$admin]);
 
     }
 
@@ -35,7 +40,18 @@ class ApartmentsController extends Controller
     public function create()
     {
         //
-        return view('admin.apartments.create');
+        $user=Auth::guard('admin')->user();
+        if ($user->isSuperAdmin()){
+            $employees=Admins::all();
+        }
+        else
+        {   
+            return redirect()->back()->with('error',
+                'you are not authorized!!');
+        }
+        return view('admin.apartments.create',[
+        'employees'=>$employees,
+        ]);
     }
 
     /**
@@ -56,6 +72,7 @@ class ApartmentsController extends Controller
         ]);
 
         $data = $request->except('_token', '_method');
+        $data['admins_id']=$request->caretaker;
         $data['slug'] = str_slug($request->input('name'));
         if ($request->hasFile('cover') && $request->file('cover') instanceof UploadedFile) {
             $data['cover'] = $request->file('cover')->store('apartments', ['disk' => 'public']);
@@ -71,6 +88,7 @@ class ApartmentsController extends Controller
             $apt = new Apartments($params);
             $apt->save();
 
+
             if (isset($params['images']) && is_array($params['images'])) {
                 $this->saveImages($params, $apt);
             }
@@ -83,10 +101,10 @@ class ApartmentsController extends Controller
 
       private function saveImages(array $params, Apartments $apt): void
       {
-        collect($params['images'])->each(function (UploadedFile $file) use ($product) {
+        collect($params['images'])->each(function (UploadedFile $file) use ($apt) {
             $filename = $file->store('images', ['disk' => 'public']);
             $image = new roomImages(['source' => $filename]);
-            $apt->images()->save($image);
+            $apt->roomImages()->save($image);
         });
       }
 
@@ -99,6 +117,15 @@ class ApartmentsController extends Controller
     public function show($id)
     {
         //
+        $images=roomImages::all()->where('apartments_id',$id);
+        $apartment=Apartments::find($id);
+        //dd($images);
+
+        return view('admin.apartments.show',[
+        'apartment'=>$apartment,
+        'roomImages'=>$images
+      ]);
+
     }
 
     /**

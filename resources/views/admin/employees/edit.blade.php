@@ -13,7 +13,7 @@
     </section>
     <!-- Main content -->
     <section class="content">
-        <!--include('layouts.errors-and-messages')-->
+        @include('shared.errors-and-messages')
         <div class="box">
             <form action="{{ route('admin.employees.update', $employee->id) }}" method="post" class="form">
                 <div class="box-body">
@@ -38,13 +38,6 @@
                     <div class="form-group">
                         <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" name="password" id="password" placeholder="xxxxx" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Status </label>
-                        <select name="status" id="status" class="form-control">
-                            <option value="0" @if($employee->status == 0) selected="selected" @endif>Disable</option>
-                            <option value="1" @if($employee->status == 1) selected="selected" @endif>Enable</option>
-                        </select>
                     </div>
                 </div>
                 <!-- /.box-body -->

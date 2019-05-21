@@ -20,6 +20,7 @@ class CreateRoomsTable extends Migration
             ->onDelete('cascade');
             $table->string('room_no');
             $table->string('type');
+            $table->string('price');
             $table->timestamps();
         });
     }
