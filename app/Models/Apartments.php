@@ -20,4 +20,7 @@ class Apartments extends Model
     public function rooms(){
       return $this->hasMany('App\Models\rooms','apartments_id');
     }
+    public function bookings(){
+      return $this->hasMany('App\Models\Booking','apartments_id');
+    }
 }

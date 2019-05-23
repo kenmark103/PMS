@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Models\Booking;
 
 class CustomersController extends Controller
 {
@@ -23,9 +24,22 @@ class CustomersController extends Controller
     public function index()
     {
         //
-        $users= User::get()->all();
+        $admin=auth('admin')->user();
+        if ($admin->isSuperAdmin()) {
+
+          // code...
+          $bookings=Booking::all();
+          $customers=$bookings->user;
+        }
+        else{
+
+          $id=auth('admin')->user()->apartment->id;
+          $bookings=Booking::all()->where('apartments_id',$id);
+          $customers=$bookings->user;
+
+        }
         return view('admin.customers.list', [
-            'customers' => $users
+            'customers' => $customers
         ]);
     }
 

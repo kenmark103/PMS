@@ -9,6 +9,7 @@ use App\Models\Apartments;
 use App\Models\Rooms;
 use Auth;
 use App\Models\Admins;
+use App\User;
 
 class RoomsController extends Controller
 {
@@ -41,20 +42,17 @@ class RoomsController extends Controller
           'apartment'=>$apartment,
           'rooms'=>$rooms,
       ]);
-
-
     }
 
     public function show($id)
     {
       $apartment=Apartments::find($id);
-      $rooms=Rooms::all()
-      ->where('apartments_id',$id);
-
+      $rooms=$apartment->rooms;
       return view('admin.rooms.list',[
         'apartment'=>$apartment,
         'rooms'=>$rooms,
     ]);
+
 
     }
 
@@ -66,13 +64,13 @@ class RoomsController extends Controller
     public function create()
     {
         //
-        $admin=auth()->guard('admin')->user()->isSuperAdmin();
+        $admin=auth('admin')->user()->isSuperAdmin();
         if ($admin) {
           $apartments=Apartments::all();
         }
         else
         {
-          $apartments=auth()->guard('admin')->user()->apartment;
+          $apartments=auth('admin')->user()->apartment;
         }
         return view('admin.rooms.create',[
             'apartments'=>$apartments
@@ -117,10 +115,7 @@ class RoomsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showRoom($id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -131,6 +126,8 @@ class RoomsController extends Controller
     public function edit($id)
     {
         //
+
+
     }
 
     /**

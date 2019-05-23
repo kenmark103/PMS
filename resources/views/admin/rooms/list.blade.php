@@ -42,7 +42,37 @@
                    <div class="rooms-container container-fluid">
                       <div class="row">
                         @foreach($rooms as $room)
-                         <div class="col-md-1 c1"><strong>{{$room->room_no}}</strong></div>
+                         <div class="col-md-1 c1 btn btn-primary" data-toggle="modal" data-target="#{{$room->room_no}}Modal"><strong>{{$room->room_no}}</strong></div>
+                           <div class="modal fade" id="{{$room->room_no}}Modal">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                  <h4 class="modal-title">{{$room->room_no}}</h4>
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                  Room occupied by Wanjohi since date assigned<br>
+                                  {{$room->type}}<br>
+                                  {{$room->price}}<br>
+                                  {{$room->id}}
+                                  <div class="btn-group">
+                                  <a href="{{route('admin.bookings.show',$room->id)}}" class="btn btn-default btn-sm">assign new user</a>
+                                  <button type="button" name="button">clear current user</button>
+                                  </div>
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
                          @endforeach
                       </div>
                     </div>

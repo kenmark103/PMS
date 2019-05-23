@@ -18,13 +18,13 @@
            <div class="box">
                <div class="box-body">
                    <h2>Customers</h2>
-                   <!--include('layouts.search', ['route' => route('admin.customers.index')])-->
+                   @include('shared.search', ['route' => route('admin.customers.index')])
                    <table class="table">
                        <tbody>
                        <tr>
                            <td class="col-md-2">Name</td>
                            <td class="col-md-2">Email</td>
-                           <td class="col-md-2">Status</td>
+                           <td class="col=md-2">Apartment</td>
                            <td class="col-md-2">room</td>
                            <td class="col-md-4">Actions</td>
                        </tr>
@@ -34,8 +34,8 @@
                            <tr>
                                <td>{{ $customer['name'] }}</td>
                                <td>{{ $customer['email'] }}</td>
-                               <td><!--include('layouts.status', ['status' => $customer['status']])--></td>
-                              <td>404a</td>
+                               <td>{{ $customer->apartment->name}}</td>
+                              <td>{{$customer->room->room_no}}</td>
                                <td>
                                    <form action="{{ route('admin.customers.destroy', $customer['id']) }}" method="post" class="form-horizontal">
                                        {{ csrf_field() }}

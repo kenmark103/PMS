@@ -19,13 +19,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['prefix' => 'admin'],function(){
 Route::namespace('Admin')->group(function () {
-    Route::get('admin', 'LoginController@showLoginForm');
-    Route::post('admin', 'LoginController@login')->name('admin.login');
-    Route::get('admin/logout', 'LoginController@adminLogout')->name('admin.logout');
-    Route::get('admin/dashboard', 'DashboardController@index')->name('admin.dashboard');
-    Route::post('admin/dashboard', 'DashboardController@store')->name('admin.dashboard.upload');
-});
+    Route::get('/', 'LoginController@showLoginForm');
+    Route::post('/', 'LoginController@login')->name('admin.login');
+    Route::get('/logout', 'LoginController@adminLogout')->name('admin.logout');
+    Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
+    Route::post('/dashboard', 'DashboardController@store')->name('admin.dashboard.upload');
+});});
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], function ()
  {
