@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
-use App\Models\Booking;
+use App\Models\Tenant;
+use App\Models\Apartments;
 
 class CustomersController extends Controller
 {
@@ -28,14 +29,19 @@ class CustomersController extends Controller
         if ($admin->isSuperAdmin()) {
 
           // code...
-          $bookings=Booking::all();
-          $customers=$bookings->user;
+          $customers=User::with(['tenants' => function ($query) {
+          $query->orderBy('apartments_id', 'desc');
+        }],'tenants.room')->get()->first();
+         $customers->loadRoom;
+
         }
         else{
 
           $id=auth('admin')->user()->apartment->id;
-          $bookings=Booking::all()->where('apartments_id',$id);
-          $customers=$bookings->user;
+          $customers=Tenant::all()->where('apartments_id',$id);
+          $users = User::with(['tenants' => function ($query) {
+          $query->where('apartments_id',$id);
+          }])->get();
 
         }
         return view('admin.customers.list', [

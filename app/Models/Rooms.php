@@ -14,8 +14,7 @@ class Rooms extends Model
     public function apartment(){
       return $this->belongsTo('App\Models\Apartments','apartments_id');
     }
-    public function booked()
-    {
-    return $this->hasOne('App\Models\Booking','rooms_id');
+    public function tenants(){
+      return $this->hasMany('App\Models\Tenant','rooms_id');
     }
 }

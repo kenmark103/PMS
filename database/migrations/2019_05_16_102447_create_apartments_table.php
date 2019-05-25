@@ -20,8 +20,7 @@ class CreateApartmentsTable extends Migration
             $table->string('cover');
             $table->string('description')->default('');
             $table->unsignedBigInteger('admins_id');
-            $table->foreign('admins_id')->references('id')->on('admins')
-            ->onDelete('cascade');
+            $table->foreign('admins_id')->references('id')->on('admins')->onDelete('cascade');
             $table->string('map')->nullable();
             $table->string('slug');
             $table->timestamps();

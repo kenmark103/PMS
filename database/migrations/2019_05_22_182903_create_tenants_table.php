@@ -15,6 +15,12 @@ class CreateTenantsTable extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('rooms_id');
+            $table->foreign('rooms_id')->references('id')->on('rooms')->onDelete('cascade');
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('apartments_id');
+            $table->foreign('apartments_id')->references('id')->on('apartments')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -34,8 +34,8 @@
                            <tr>
                                <td>{{ $customer['name'] }}</td>
                                <td>{{ $customer['email'] }}</td>
-                               <td>{{ $customer->apartment->name}}</td>
-                              <td>{{$customer->room->room_no}}</td>
+                               <td>Apartment name</td>
+                              <td></td>
                                <td>
                                    <form action="{{ route('admin.customers.destroy', $customer['id']) }}" method="post" class="form-horizontal">
                                        {{ csrf_field() }}

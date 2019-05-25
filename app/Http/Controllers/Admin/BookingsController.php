@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\User;
 use View;
 use App\Models\Booking;
+use App\Models\Tenant;
 use App\Models\Rooms;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -41,8 +42,8 @@ class BookingsController extends Controller
     {
         //
         $this->validate($request,[
-          'users_id'=>'required|unique:bookings,users_id',
-          'rooms_id'=>'unique:bookings,rooms_id'
+          'users_id'=>'required|unique:tenants,users_id',
+          'rooms_id'=>'unique:tenants,rooms_id'
         ]);
 
         $room=Rooms::find($request->rooms_id);
@@ -51,10 +52,14 @@ class BookingsController extends Controller
 
         $data=$request->except('_token','_method');
         $data['apartments_id']=$apartment->id;
-        $booking=new Booking($data);
-        $booking->save();
-        return View::make('admin.rooms.list',compact($apartment,$rooms))
-        ->with('success','user has been assigned new room');
+        $tenant=new Tenant($data);
+        $tenant->save();
+        return View::make('admin.rooms.list')
+        ->with([
+          'success'=>'user has been assigned new room',
+          'apartment'=>$apartment,
+          'rooms'=>$rooms,
+        ]);
 
     }
 

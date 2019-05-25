@@ -42,12 +42,13 @@
                           </div>
                         @endforeach
                    </div>
-                   @if($admin){
-                     <a href="{{route('admin.apartments.create')}}"><button type="btn" name="links" class="btn btn-primary"> new apartment</button></a>
-                   }
-                   @endif
                </div>
                <!-- /.box-body -->
+               @if($admin)
+               <div class="container">
+                 <a href="{{route('admin.apartments.create')}}"><button type="btn" name="links" class="btn btn-primary"> new apartment</button></a>
+               </div>
+               @endif
            </div>
            <!-- /.box -->
        @endif

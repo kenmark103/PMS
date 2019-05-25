@@ -28,10 +28,19 @@ class RoomsController extends Controller
 
       $user=Auth::guard('admin')->user();
       $apartment=$user->apartment;
+      if (!isset($apartment) && !$user->isSuperAdmin()) {
+        // code...
+        return redirect()->back()->with('error','no apartment assigned');
+      }
+
     //  dd($apartment);
 
       if ($user->isSuperAdmin()){
         $apartments=Apartments::all();
+        if (is_null($apartments)) {
+          // code...
+          return redirect()->back()->with('error','create new apartment');
+        }
         return view ('admin.rooms.selectApartment',[
             'apartments'=>$apartments]);
       }
