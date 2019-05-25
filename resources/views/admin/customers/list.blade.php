@@ -32,12 +32,12 @@
                        <tbody>
                        @foreach ($customers as $customer)
                            <tr>
-                               <td>{{ $customer['name'] }}</td>
-                               <td>{{ $customer['email'] }}</td>
-                               <td>Apartment name</td>
-                              <td></td>
+                               <td>{{ $customer->user->name }}</td>
+                               <td>{{ $customer->user->email}}</td>
+                               <td>{{$customer->apartment->name}}</td>
+                               <td>{{$customer->room->room_no}}</td>
                                <td>
-                                   <form action="{{ route('admin.customers.destroy', $customer['id']) }}" method="post" class="form-horizontal">
+                                   <form action="{{ route('admin.customers.destroy', $customer->user->id) }}" method="post" class="form-horizontal">
                                        {{ csrf_field() }}
                                        <input type="hidden" name="_method" value="delete">
                                        <div class="btn-group">

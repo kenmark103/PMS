@@ -28,21 +28,18 @@ class CustomersController extends Controller
         $admin=auth('admin')->user();
         if ($admin->isSuperAdmin()) {
 
-          // code...
-          $customers=User::with(['tenants' => function ($query) {
-          $query->orderBy('apartments_id', 'desc');
-        }],'tenants.room')->get()->first();
-         $customers->loadRoom;
-
+          /** code...
+          **$customers=User::with(['tenants' => function ($query) {
+          **$query->orderBy('apartments_id', 'desc');
+         **}],'tenants.room')->get()->first();
+         **$customers->loadRoom;
+         **/
+          $customers=Tenant::all();
         }
         else{
 
           $id=auth('admin')->user()->apartment->id;
           $customers=Tenant::all()->where('apartments_id',$id);
-          $users = User::with(['tenants' => function ($query) {
-          $query->where('apartments_id',$id);
-          }])->get();
-
         }
         return view('admin.customers.list', [
             'customers' => $customers

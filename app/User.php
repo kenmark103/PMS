@@ -40,6 +40,9 @@ class User extends Authenticatable
     public function tenants(){
       return $this->hasMany('App\Models\Tenant','users_id');
     }
+
+
+    //incomplete code
     public function getroom_noAttribute()
     {
       if ( ! array_key_exists('userRoom', $this->relations)) $this->loadRoom();
@@ -57,4 +60,5 @@ class User extends Authenticatable
     {
       return $this->belongsToMany('App\Models\Rooms','tenants','users_id','rooms_id');
     }
+    //incomplete
 }

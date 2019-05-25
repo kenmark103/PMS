@@ -55,7 +55,7 @@
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                  Room occupied by Wanjohi since date assigned<br>
+                                  Room occupied by since date assigned<br>
                                   {{$room->type}}<br>
                                   {{$room->price}}<br>
                                   {{$room->id}}

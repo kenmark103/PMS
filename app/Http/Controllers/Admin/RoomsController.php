@@ -56,7 +56,7 @@ class RoomsController extends Controller
     public function show($id)
     {
       $apartment=Apartments::find($id);
-      $rooms=$apartment->rooms;
+      $rooms=$apartment->rooms->load('tenants','tenants.user');
       return view('admin.rooms.list',[
         'apartment'=>$apartment,
         'rooms'=>$rooms,
