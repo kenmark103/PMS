@@ -3,7 +3,6 @@
 <div class="content-wrapper">
     <section class="content-header">
       <h1>
-
         <small></small>
       </h1>
       <ol class="breadcrumb">
@@ -13,7 +12,7 @@
     </section>
     <!-- Main content -->
     <section class="content">
-
+      @include('shared.errors-and-messages')
         <!-- Default box -->
         <div class="box">
             <div class="box-body">
@@ -53,6 +52,16 @@
                     </tbody>
                 </table>
                 @endif
+                <table class="table">
+                  <tbody>
+                    <th class="col-md-2">Contact</th>
+                    <th class="col-md-2">Phone</th>
+                  </tbody>
+                  <tbody>
+                    <td>{{$apartment->admin->name}}</td>
+                    <td>{{$apartment->admin->phonenumber}}</td>
+                  </tbody>
+                </table>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

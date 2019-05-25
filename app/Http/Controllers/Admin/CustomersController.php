@@ -35,11 +35,24 @@ class CustomersController extends Controller
          **$customers->loadRoom;
          **/
           $customers=Tenant::all();
+          if (is_null($customers)) {
+            // code
+            return redirect()->back()->with('error','you have no customers');
+          }
         }
         else{
-
-          $id=auth('admin')->user()->apartment->id;
+          $caretaker=auth('admin')->user();
+          if (is_null($caretaker->apartment)) {
+            // code...
+            return redirect()->back()->with('error','you have no assigned apartment');
+          }
+          $id=$caretaker->apartment->id;
           $customers=Tenant::all()->where('apartments_id',$id);
+          if (is_null($customers)) {
+            // code
+            return redirect()->back()->with('error','you have no customers');
+          }
+
         }
         return view('admin.customers.list', [
             'customers' => $customers

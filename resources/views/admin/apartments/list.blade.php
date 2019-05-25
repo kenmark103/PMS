@@ -24,8 +24,9 @@
                       @foreach($apartments as $apartment)
                          <div class="col-md-3">
                            <div class="cover"><img src="{{asset("storage/$apartment->cover")}}" class="image-resposive" alt="{{$apartment->slug}}" style="width:100%; max-height: 15rem;"></div>
-                           <header>{{$apartment->name}}</header>
-                           <address>{{$apartment->location}}</address>
+                           <header>name: {{$apartment->name}}</header>
+                            <small>contact: {{$apartment->admin->name}}</small>
+                            <address>location: {{$apartment->location}}</address>
                            <div class="form-group">
                              <form action="{{ route('admin.apartments.destroy', $apartment->id) }}" method="post" class="form-horizontal">
                                       {{ csrf_field() }}

@@ -13,7 +13,8 @@
   </section>
   <!-- Main content -->
 <section class="content">
-  welcome to pms<strong>{{ Auth::guard('admin')->user()->name }}!!!</strong>
+  @include('shared.errors-and-messages')
+    welcome to pms<strong>{{ Auth::guard('admin')->user()->name }}!!!</strong>
 </section>
 </div>
 @endsection

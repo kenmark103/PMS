@@ -12,7 +12,7 @@ class Apartments extends Model
     ];
 
     public function admin(){
-      return $this->hasOne('App\Models\Admins','admins_id');
+      return $this->belongsTo('App\Models\Admins','admins_id');
     }
     public function roomImages(){
       return $this->hasMany('App\Models\roomImages','apartments_id');

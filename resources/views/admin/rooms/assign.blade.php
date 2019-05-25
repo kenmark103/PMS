@@ -1,4 +1,23 @@
 @extends('admin.main.app')
+@section('extracss')
+<style media="screen" type="text/css" scoped="true">
+ .users-wrapper{
+   margin-top: 1em;
+ }
+ .users-container{
+   display: flex;
+   flex-wrap: wrap;
+   padding: 1em;
+   padding-right: 1em;
+   padding-left: 1em;
+   background-color: #dcdcdc;
+   border-radius: 3px;
+ }
+ .input-group{
+   margin-left: 5px;
+ }
+</style>
+@endsection
 @section('content')
 <div class="content-wrapper">
     <section class="content-header">
@@ -12,7 +31,7 @@
     </section>
     <!-- Main content -->
     <section class="content">
-      @include('shared.errors-and-messages')-->
+      @include('shared.errors-and-messages')
         <div class="box">
             <div class="header">
               <h2>assign room <small>{{$room->apartment->name}}&nbsp;{{$room->room_no}}</small></h2>
@@ -24,11 +43,13 @@
                         <?php if (isset($users)): ?>
                         <div class="users-wrapper">
                           <small>select one user</small>
-                          <div class="container py-4 my-4">
+                          <div class="users-container py-4 my-4">
                           <?php foreach ($users as $user): ?>
-                            <input type="hidden" name="rooms_id" value="{{$room->id}}">
-                            <input type="radio" name="users_id" value="{{$user->id}}">
-                            <label for="user">{{$user->name}}</label>
+                            <div class="input-group col-md-4">
+                              <input type="hidden" name="rooms_id" value="{{$room->id}}">
+                              <input type="radio" name="users_id" value="{{$user->id}}" class="user-radio">
+                              <label for="user" class="user-label">{{$user->name}}</label>
+                            </div>
                           <?php endforeach; ?>
                          </div>
                         </div>

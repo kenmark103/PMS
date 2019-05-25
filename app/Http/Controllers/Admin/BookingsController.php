@@ -41,10 +41,16 @@ class BookingsController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request,[
+        $rules = [
           'users_id'=>'required|unique:tenants,users_id',
           'rooms_id'=>'unique:tenants,rooms_id'
-        ]);
+        ];
+        $customMessages = [
+          'users_id.unique'=>'this user has an assigned room, clear user from rooms table',
+          'rooms_id.unique'=>'this room is already assigned, clear room from rooms table'
+        ];
+
+         $this->validate($request, $rules, $customMessages);
 
         $room=Rooms::find($request->rooms_id);
         $apartment=$room->apartment;

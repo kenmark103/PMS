@@ -17,4 +17,14 @@ class Rooms extends Model
     public function tenants(){
       return $this->hasMany('App\Models\Tenant','rooms_id');
     }
+    public function loadUser()
+    {
+      return $this->users->first();
+      // $this->setRelation('userRoom', $this->rooms->first());
+    }
+
+    public function users()
+    {
+      return $this->belongsToMany('App\Models\User','tenants','rooms_id','users_id');
+    }
 }

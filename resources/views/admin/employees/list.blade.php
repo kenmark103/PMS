@@ -23,9 +23,10 @@
                   <tbody>
                       <tr>
                           <td class="col-md-3">Name</td>
-                          <td class="col-md-3">Email</td>
+                          <td class="col-md-2">Email</td>
                           <td class="col-md-1">Status</td>
                           <td class="col-md-1">Role</td>
+                          <td class="col-md-1">Apartment</td>
                           <td class="col-md-4">Actions</td>
                       </tr>
                   </tbody>
@@ -35,7 +36,14 @@
                           <td><b>{{ $employee->name }}</b></td>
                           <td>{{ $employee->email }}</td>
                           <td>Active<!--include('layouts.status', ['status' => $employee->status])--></td>
-                          <td>Super Admin</td>
+                          <td>{{$employee->role->name}}</td>
+                          <?php if ($employee->isSuperAdmin()): ?>
+                            <td>All</td>
+                          <?php elseif (is_null($employee->apartment)): ?>
+                            <td>none</td>
+                          <?php else: ?>
+                            <td>{{$employee->apartment->name}}</td>
+                          <?php endif; ?>
                           <td>
                               <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="post" class="form-horizontal">
                                   {{ csrf_field() }}
