@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('extracss')
 </head>
 <body>
     <div id="app">
@@ -72,9 +73,10 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 mx-auto col-md-11">
             @yield('content')
         </main>
     </div>
 </body>
+@yield('extrajs')
 </html>

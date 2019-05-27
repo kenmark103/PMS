@@ -1,0 +1,55 @@
+.showapartment{
+  font-size: 16px;
+
+  & .box-heading{
+    height: 10rem;
+  }
+  & .house-image{
+    align-items: center;
+    justify-content: center;
+  }
+  & .house-image img{
+    width: 8rem;
+    height: 8rem;
+    margin-bottom: 1em;
+    border-radius: 50%;
+  }
+  & .house-heading{
+
+  }
+  & .caruosel-wrapper{
+    margin-top: 1rem;
+  }
+  & .set-width{
+    width: 100%;
+  }
+  & .carousel-item{
+    height: 25rem;
+    width: inherit;
+    & img{
+      width: inherit;
+      max-height: 25rem;
+    }
+  }
+ & .rooms-view{
+
+ }
+ & .c1{
+   border: 5px solid #C1DAD7;
+   padding: 5px;
+   background:#4b8c74;
+ }
+ & .aside-right{
+   padding: 5px;
+ }
+ &.services{
+   border-radius: 2px;
+   width: inherit;
+ }
+ & .services-wrapper{
+
+   font-size: 16px;
+   line-height:normal;
+   width: 5rem;
+ }
+}

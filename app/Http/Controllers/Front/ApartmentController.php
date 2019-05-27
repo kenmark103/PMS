@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Apartments;
+use View;
 
 class ApartmentController extends Controller
 {
@@ -15,6 +17,8 @@ class ApartmentController extends Controller
     public function index()
     {
         //
+        $apartments=Apartments::all();
+        return View::make('front.apartments',['apartments'=>$apartments]);
     }
 
     /**
@@ -47,6 +51,14 @@ class ApartmentController extends Controller
     public function show($id)
     {
         //
+        $apartment=Apartments::find($id);
+        $rooms=$apartment->rooms;
+        $roomImages=$apartment->roomImages;
+        return view('front.showapartment',[
+          'apartment'=>$apartment,
+          'rooms'=>$rooms,
+          'roomImages'=>$roomImages,
+        ]);
     }
 
     /**

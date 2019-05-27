@@ -16,9 +16,7 @@
   <link rel="stylesheet" href="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
   <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-   <style type="text/css">
     @yield('extracss')
-  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -31,9 +29,6 @@
   <!-- controls bar. Contains user controls sidebar elements -->
   @include('admin.includes.footer')
   @include('admin.includes.controls')
-
-
-
   <div class="control-sidebar-bg"></div>
 </div>
 <script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>

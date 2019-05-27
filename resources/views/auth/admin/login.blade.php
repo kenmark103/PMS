@@ -16,7 +16,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href=""><b>Property</b>System</a>
+    <a href=""><b>Properties</b>Panel</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
