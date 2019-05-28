@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Apartments;
+use App\Models\Rooms;
+
 use View;
 
 class ApartmentController extends Controller

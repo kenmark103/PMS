@@ -1,5 +1,6 @@
 @extends('admin.main.app')
 @section('extracss')
+<style media="screen">
     ul.apts {
       list-style-type: none;
     }
@@ -66,8 +67,9 @@
       box-shadow: 0 0 5px #333;
       z-index: -1;
     }
+    </style>
   @endsection
-
+  
 @section('content')
 <div class="content-wrapper">
     <section class="content-header">

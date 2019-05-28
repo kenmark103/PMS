@@ -6,7 +6,10 @@
 //pages
 @import 'pages/showapartment';
 @import 'pages/welcome';
-
+@import 'pages/home';
+//layouts
+@import 'layout/layout';
+//helpers
+@import 'helpers/colorclasses';
 // Bootstrap
-
 @import '~bootstrap/scss/bootstrap';

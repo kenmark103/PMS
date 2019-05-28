@@ -24,7 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('front.home');
+        $user=auth()->user();
+        if ($user->rooms) {
+          $room = $user->rooms->first();
+        }
+        return view('front.homextends.dashboard',[
+          'room'=>$room,
+          'user'=>$user,
+        ]);
     }
     public function create()
     {

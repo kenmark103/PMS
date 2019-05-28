@@ -14,8 +14,8 @@
           <div class="house-image col-md-4 py-4">
             <img src="{{asset("storage/$apartment->cover")}}" alt="">
           </div>
-          <div class="house-heading col-md-8 py-1">
-            <address class=""><b>{{$apartment->name}}</b></address>
+          <div class="house-heading col-md-8 py-4">
+            <address class=""><h4>{{$apartment->name}}</h4></address>
             <small>{{$apartment->location}}</small>
           </div>
         </section>
@@ -55,20 +55,20 @@
           </div>
         </div>
         <div class="box-footer py-2 my-2">
-          <p class="text-section">book available rooms</p>
+          <p class="text-section">To book available rooms <small>click on tab</small></p>
           <?php if($rooms->count() > 0): ?>
             <div class="rooms-view">
               <div class="container-fluid">
                   <div class="row">
                     <?php foreach ($rooms as $room): ?>
-                      <button type="button" class="btn btn-primary col-md-2 c1" data-toggle="modal" data-target="#modal{{$room->room_no}}">{{$room->room_no}}</button>
+                      <div class="btn btn-default col-md-1 c1" data-toggle="modal" data-target="#modal{{$room->room_no}}">{{$room->room_no}}</div>
                         <!-- The Modal -->
                         <div class="modal" id="modal{{$room->room_no}}">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <!-- Modal Header -->
                               <div class="modal-header">
-                                <h4 class="modal-title"><b><small>room</small>&nbsp;&nbsp;{{$room->room_no}}</b></h4>
+                                <h4 class="modal-title"><small>room</small>&nbsp;&nbsp;{{$room->room_no}}</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                               </div>
                               <!-- Modal body -->
@@ -105,14 +105,14 @@
           </div>
         </div>
         <div class="caretaker py-4">
-          <div class="card">
+          <div class="card col-md-10">
             <div class="card-header">
-              <caption class="name">{{$apartment->admin->name}} -- admin</caption>
+              <caption class="name"><b>{{$apartment->admin->name}} -- <br>admin</b> <i class="fa fa-user fa-lg"></i></caption>
             </div>
             <div class="btn-group contact-cntrl card-body">
-              <button type="button" name="button-txt" class="btn btn-primary col-md-4">txt</button>
-              <button type="button" name="button-call" class="btn btn-success col-md-4">call</button>
-              <button type="button" name="button-mail" class="btn btn-danger col-md-4">email</button>
+              <button type="button" name="button-txt" class="btn btn-primary col-md-4"><i class="fa fa-reply-all"></i></button>
+              <button type="button" name="button-call" class="btn btn-success col-md-4"><i class="fa fa-phone"></i></button>
+              <button type="button" name="button-mail" class="btn btn-danger col-md-4"><i class="fa fa-envelope"></i></button>
             </div>
             <div class="card-footer">
             <details closed>

@@ -3,6 +3,9 @@
 <div class="content">
   <?php if ($apartments): ?>
     <div class="apartments-cover container-fluid">
+      <div class="heading shadow-sm container">
+        <h3>Apartments</h3>
+      </div>
       <div class="row">
         <?php foreach ($apartments as $apartment): ?>
           <a href="{{route('front.apartments.show',$apartment->id)}}" class="apartment-wrapper col-md-4 shadow-sm my-2">

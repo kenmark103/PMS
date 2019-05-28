@@ -10,11 +10,13 @@
 .rooms-container header{
     border: 5px solid #C1DAD7;
 }
-.rooms-container .c1{
+.rooms-container .user{
     border: 5px solid #C1DAD7;
-}
-.rooms-container .c1{
     background:#4b8c74;
+}
+.rooms-container .nouser{
+  border: 5px solid #C1DAD7;
+  background: #FA8072;
 }
 </style>
 @endsection
@@ -41,7 +43,7 @@
                    <div class="rooms-container container-fluid">
                       <div class="row">
                         @foreach($rooms as $room)
-                         <div class="col-md-1 c1 btn btn-primary" data-toggle="modal" data-target="#{{$room->room_no}}Modal"><strong>{{$room->room_no}}</strong></div>
+                         <div class="col-md-1 {{ $room->users->first() ? 'user' : 'nouser'}} btn btn-primary" data-toggle="modal" data-target="#{{$room->room_no}}Modal"><strong>{{$room->room_no}}</strong></div>
                            <div class="modal fade" id="{{$room->room_no}}Modal">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
@@ -54,10 +56,15 @@
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                  Room occupied by since date assigned<br>
+                                  @if(isset($room->users))
+                                   @foreach($room->users as $roomowner => $user)
+                                     Room occupied by&nbsp;{{$user->name}}<br>
+                                     since <br>
+                                    @endforeach
+                                    @endif <br>
+                                    type <br>
                                   {{$room->type}}<br>
                                   {{$room->price}}<br>
-                                  {{$room->id}}
                                   <div class="btn-group">
                                   <a href="{{route('admin.bookings.show',$room->id)}}" class="btn btn-default btn-sm">assign new user</a>
                                   <button type="button" name="button">clear current user</button>
