@@ -2,9 +2,11 @@
 
 namespace App;
 
+use App\Models\Message;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\notifications;
 
 class User extends Authenticatable
 {
@@ -45,5 +47,8 @@ class User extends Authenticatable
     {
       return $this->belongsToMany('App\Models\Rooms','tenants','users_id','rooms_id')->withTimestamps();
     }
-    //incomplete
+     public function messages()
+    {
+      return $this->belongsTo(Message::class);
+    }
 }

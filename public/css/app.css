@@ -96,14 +96,14 @@
   color: inherit;
 }
 
+/** aside menus */
+
 .nav-side-menu {
   overflow: auto;
   font-family: verdana;
   font-size: 12px;
   font-weight: 200;
   background-color: #2e353d;
-  position: fixed;
-  top: 60px;
   width: 300px;
   height: 100%;
   color: #e1ffff;
@@ -124,7 +124,7 @@
 .nav-side-menu ul,
 .nav-side-menu li {
   list-style: none;
-  padding: 0px;
+  padding: 0 0.5em;
   margin: 0px;
   line-height: 35px;
   cursor: pointer;
@@ -250,6 +250,50 @@
   .nav-side-menu .menu-list .menu-content {
     display: block;
   }
+}
+
+/** chat styles */
+
+.chat {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chat li {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li .chat-body p {
+  margin: 0;
+  color: #777777;
+}
+
+.chat .card-body {
+  overflow-y: scroll;
+  height: 350px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #555;
+}
+
+.card-purple {
+  background-color: #e2598b !important;
+  color: #fff;
 }
 
 .navbar-purple {

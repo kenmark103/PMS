@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
-
+use App\Models\Apartments;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $apartments= Apartments::inRandomOrder()->take(4)->get();
         $user=auth()->user();
         if ($user->rooms) {
           $room = $user->rooms->first();
@@ -31,6 +32,7 @@ class HomeController extends Controller
         return view('front.homextends.dashboard',[
           'room'=>$room,
           'user'=>$user,
+          'apartments'=>$apartments,
         ]);
     }
     public function create()

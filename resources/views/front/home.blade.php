@@ -37,7 +37,22 @@
 
   <main class="main col-md-9">
     @yield('main')
-  </main>
+    <section class="bottom mt-5">
+      @if(isset($apartments))
+       <div class="container-fluid">
+        <p class="heading text-center">similar apartments</p>
+         <div class="row">
+          @foreach($apartments as $apartment)
+           <a href="{{route('front.apartments.show',$apartment->id)}}" class="col-md-3">
+             <img src="{{asset("storage/$apartment->cover")}}" style="width:100%; height:auto;">
+             <caption class="text-center">{{$apartment->name}}</caption>
+           </a>
+           @endforeach
+         </div>
+         @endif
+       </div>
+     </section>
+  </main> 
  </div>
-</div>
+ </div>
 @endsection

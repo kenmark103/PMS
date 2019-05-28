@@ -7,7 +7,7 @@
 @endsection
 @section('content')
 <?php if (isset($apartment)): ?>
-  <div class="container-fluid showapartment">
+  <div class="container-fluid showapartment col-md-11">
     <div class="row">
       <div class="box col-md-9">
         <section class="box-heading row shadow-sm">

@@ -41,3 +41,7 @@ Route::namespace('Front')->group(function () {
        Route::resource('home', 'HomeController');
      });
 });
+
+/** messages */
+Route::get('/messages', 'ChatsController@fetchMessages');
+Route::post('/messages', 'ChatsController@sendMessage');
