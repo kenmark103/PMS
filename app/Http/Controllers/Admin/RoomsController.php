@@ -132,10 +132,9 @@ class RoomsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
         //
-
 
     }
 
@@ -149,6 +148,7 @@ class RoomsController extends Controller
     public function update(Request $request, $id)
     {
         //
+
     }
 
     /**
@@ -160,5 +160,6 @@ class RoomsController extends Controller
     public function destroy($id)
     {
         //
+
     }
 }

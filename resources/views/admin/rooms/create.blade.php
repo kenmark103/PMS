@@ -20,11 +20,11 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                      <label for="category">Select apartment<span class="text-danger">*</span></label>
+                      <label for="category" class="text-danger">Select apartment<span class="text-danger">*</span></label>
                         <select name="apartment" id="apartment" class="form-control">
                             <?php if (auth('admin')->user()->isSuperAdmin()): ?>
                               <?php foreach ($apartments as $apartment): ?>
-                                <option value="{{ $apartment->id }}">{{ $apartment->name }}</option>
+                                <option value="{{ $apartment->id }}" >{{ $apartment->name }}</option>
                               <?php endforeach; ?>
                             <?php else: ?>
                               <option value="{{ $apartments->id }}">{{ $apartments->name }}</option>
@@ -52,7 +52,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <div class="btn-group">
-                        <a href="{{ route('admin.apartments.index') }}" class="btn btn-default">Back</a>
+                        <a href="{{URL::previous()}}" class="btn btn-default">Back</a>
                         <button type="submit" class="btn btn-primary">Create</button>
                     </div>
                 </div>

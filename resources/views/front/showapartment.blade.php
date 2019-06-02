@@ -19,8 +19,57 @@
             <small>{{$apartment->location}}</small>
           </div>
         </section>
+        @include('shared.errors-and-messages')
 
         <div class="box-body">
+          <div class="container text-container p-2">
+            <p class="text-section">currently available rooms @isset($rooms){{$rooms->count()}}@endif <br>
+              <small class="text-primary">Click on tab to view room properties and request a booking</small></p>
+            </div>
+          <?php if($rooms->count() > 0): ?>
+            <div class="rooms-view">
+              <div class="container-fluid">
+                  <div class="row">
+                    <?php foreach ($rooms as $room): ?>
+                      <div class="btn btn-default col-md-1 c1" data-toggle="modal" data-target="#modal{{$room->room_no}}">{{$room->room_no}}</div>
+                        <!-- The Modal -->
+                        <div class="modal" id="modal{{$room->room_no}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <!-- Modal Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title"><small>room</small>&nbsp;&nbsp;{{$room->room_no}}</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              </div>
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                <strong>room details</strong><br>
+                                <small>type</small>&nbsp;&nbsp;{{$room->type}}<br>
+                                <small>price</small>&nbsp;&nbsp;{{$room->price}}
+                              </div>
+                              <!-- Modal footer -->
+                              <div class="modal-footer">
+                                <a href="{{route('front.home.edit',$room->id)}}" class="btn btn-default btn-sm">request room</a>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    <?php endforeach; ?>
+                  </div>
+                </div>
+              </div>
+          <?php else: ?>
+            <div class="alert-danger">
+                !no available rooms at the moment!!
+            </div>
+         <?php endif; ?>
+       </div>
+
+        <div class="box-footer py-2 my-2">
+          <div class="container text-container p-2">
+            <p class="text-section">{{$apartment->name}} room images <br>
+            </div>
           <div class="caruosel-wrapper">
             <?php if (isset($roomImages)): ?>
             <div id="roomCarousel" class="carousel slide set-width" data-ride="carousel">
@@ -50,52 +99,10 @@
                 <span class="carousel-control-next-icon"></span>
               </a>
             </div>
-
             <?php endif; ?>
           </div>
         </div>
-        <div class="box-footer py-2 my-2">
-          <p class="text-section">To book available rooms <small>click on tab</small></p>
-          <?php if($rooms->count() > 0): ?>
-            <div class="rooms-view">
-              <div class="container-fluid">
-                  <div class="row">
-                    <?php foreach ($rooms as $room): ?>
-                      <div class="btn btn-default col-md-1 c1" data-toggle="modal" data-target="#modal{{$room->room_no}}">{{$room->room_no}}</div>
-                        <!-- The Modal -->
-                        <div class="modal" id="modal{{$room->room_no}}">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <!-- Modal Header -->
-                              <div class="modal-header">
-                                <h4 class="modal-title"><small>room</small>&nbsp;&nbsp;{{$room->room_no}}</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              </div>
-                              <!-- Modal body -->
-                              <div class="modal-body">
-                                <strong>room details</strong><br>
-                                <small>type</small>&nbsp;&nbsp;{{$room->type}}<br>
-                                <small>price</small>&nbsp;&nbsp;{{$room->price}}
-                              </div>
-                              <!-- Modal footer -->
-                              <div class="modal-footer">
-                                <a href="{{route('front.home.store')}}" class="btn btn-default btn-sm">request room</a>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                    <?php endforeach; ?>
-                  </div>
-                </div>
-              </div>
-          <?php else: ?>
-            <div class="alert-danger">
-                !no available rooms at the moment!!
-            </div>
-         <?php endif; ?>
-         </div>
-        </div>
+      </div>
       </div>
       <aside class="aside-right col-md-3">
         <div class="services my-3 py-2 container">

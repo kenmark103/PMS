@@ -66,7 +66,7 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <div class="btn-group">
-                    <a href="{{ route('admin.apartments.index') }}" class="btn btn-default btn-sm">Back</a>
+                    <a href="{{ URL::previous() }}" class="btn btn-default btn-sm">Back</a>
                 </div>
             </div>
         </div>

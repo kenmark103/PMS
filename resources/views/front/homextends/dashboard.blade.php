@@ -2,11 +2,14 @@
 @section('main')
 <div class="card-wrapper col-md-8 col-md-offset-2">
   <div class="card">
+    @if(isset($room))
     <div class="title py-2 px-2">
       <h5>{{$room->apartment->name}} Apartment &nbsp; Room{{$room->room_no}}</h5>
     </div>
+    @endif
   </div>
 </div>
+@include('shared.errors-and-messages')
  <div class="container-fluid my-4">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -43,6 +46,25 @@
         </div>
     </div>
 </div>
+
+<div class="container payment-section">
+  <form class="" action="index.html" method="post">
+    <div>
+      <div class="input-group">
+          <input id="paymnt-input" type="text" name="payment" class="form-control input-sm" placeholder="Type your payment code here ie. NZXccVB879" v-model="newMessage" @keyup.enter="sendMessage">
+          <span class="input-group-btn">
+              <button class="btn btn-primary btn-sm py-2" id="btn-send" @click="sendMessage">
+                  Send <i class="fa fa-bank fa-lg"></i>
+              </button>
+          </span>
+      </div>
+    </div>
+  <div class="input-group">
+    <label for="upload-image">Upload image of receipt etc</label>
+    <input type="file" name="upload-image" value="" id="upload-image">
+  </div>
+  </form>
+</div>
 <script>
     export default {
         props: ['user'],
@@ -62,7 +84,7 @@
 
                 this.newMessage = ''
             }
-        }    
+        }
     }
 </script>
 @endsection

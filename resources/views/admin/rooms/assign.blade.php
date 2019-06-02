@@ -58,7 +58,7 @@
                     <!-- /.box-body -->
                     <div class="box-footer">
                         <div class="btn-group">
-                            <a href="{{ route('admin.rooms.index') }}" class="btn btn-default">Back</a>
+                            <a href="{{ URL::previous() }}" class="btn btn-default">Back</a>
                             <button type="submit" class="btn btn-primary">Assign Room</button>
                         </div>
                     </div>

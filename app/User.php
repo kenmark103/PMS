@@ -39,15 +39,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function tenants(){
+    public function roomsBooked()
+    {
+      return $this->belongsToMany('App\Models\Rooms','bookings','users_id','rooms_id')->withTimestamps();
+    }
+    public function bookings()
+    {
+      return $this->hasMany('App\Models\Bookings','users_id')->withTimestamps();
+    }
+    public function tenants()
+    {
       return $this->hasMany('App\Models\Tenant','users_id');
     }
-
+    public function payments()
+    {
+      return $this->hasMany('App\Models\Payments','users_id');
+    }
     public function rooms()
     {
       return $this->belongsToMany('App\Models\Rooms','tenants','users_id','rooms_id')->withTimestamps();
     }
-     public function messages()
+    public function roomPayments()
+    {
+      return $this->belongsToMany('App\Models\Rooms','room_payments','users_id','rooms_id')->withTimestamps();
+    }
+    public function messages()
     {
       return $this->belongsTo(Message::class);
     }

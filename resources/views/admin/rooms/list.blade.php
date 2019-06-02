@@ -50,7 +50,8 @@
 
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                  <h4 class="modal-title">{{$room->room_no}}</h4>
+                                    <h4 class="modal-title">{{$room->room_no}}</h4>
+                                    <a href="#" class="btn btn-default btn-sm">edit</a>
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
@@ -59,16 +60,25 @@
                                   @if(isset($room->users))
                                    @foreach($room->users as $roomowner => $user)
                                      Room occupied by&nbsp;{{$user->name}}<br>
-                                     since <br>
                                     @endforeach
                                     @endif <br>
-                                    type <br>
-                                  {{$room->type}}<br>
-                                  {{$room->price}}<br>
-                                  <div class="btn-group">
-                                  <a href="{{route('admin.bookings.show',$room->id)}}" class="btn btn-default btn-sm">assign new user</a>
-                                  <button type="button" name="button">clear current user</button>
-                                  </div>
+
+                                    @if(isset($room->tenants))
+                                   @foreach($room->tenants as $roomtenant)
+                                     since &nbsp;{{$roomtenant->created_at->format('d M Y - H:i:s')}}<br>
+                                    @endforeach
+                                    @endif <br>
+
+                                  type&nbsp;{{$room->type}}<br>
+                                  price&nbsp;{{$room->price}}<br>
+                                  <form action="{{ route('admin.bookings.destroy', $room->id) }}" method="post" class="form-horizontal">
+                                      {{ csrf_field() }}
+                                      <input type="hidden" name="_method" value="delete">
+                                   <div class="btn-group">
+                                    <a href="{{route('admin.bookings.show',$room->id)}}" id="assignroombtn" class="btn btn-default btn-sm">assign new user</a>
+                                    <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" name="clearbutton">clear current user</button>
+                                   </div>
+                                </form>
                                 </div>
 
                                 <!-- Modal footer -->

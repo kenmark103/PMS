@@ -30,6 +30,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], 
     Route::resource('customers', 'CustomersController');
     Route::resource('employees', 'EmployeesController');
     Route::resource('bookings', 'BookingsController');
+    Route::resource('rmBkngs', 'rBookings');
+    Route::resource('payments', 'PaymentsController');
+
     });
 });
 

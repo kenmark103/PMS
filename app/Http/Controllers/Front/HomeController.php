@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Apartments;
+use App\Models\Bookings;
+use App\Models\Rooms;
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -46,9 +49,8 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
-        //store user request
 
     }
 
@@ -72,6 +74,21 @@ class HomeController extends Controller
     public function edit($id)
     {
         //
+        //store user request
+        $user_id=Auth::id();
+        $room=Rooms::find($id);
+        $room_id=$room->id;
+        $apartment_id=$room->apartment->id;
+
+        Bookings::Create([
+          'users_id'=>$user_id,
+          'rooms_id'=>$room_id,
+          'apartments_id'=>$apartment_id,
+        ])
+        ->save();
+
+        return redirect()->route('front.home.index')->with('message', 'your request was submitted succesfully');
+
     }
 
     /**
@@ -84,6 +101,7 @@ class HomeController extends Controller
     public function update(Request $request, $id)
     {
         //
+
     }
 
     /**

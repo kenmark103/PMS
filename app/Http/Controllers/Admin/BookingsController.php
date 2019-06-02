@@ -6,9 +6,13 @@ use App\User;
 use View;
 use App\Models\Booking;
 use App\Models\Tenant;
+use App\Models\Apartments;
 use App\Models\Rooms;
+use App\Models\Payments;
+use App\Models\room_payments;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class BookingsController extends Controller
 {
@@ -58,8 +62,11 @@ class BookingsController extends Controller
 
         $data=$request->except('_token','_method');
         $data['apartments_id']=$apartment->id;
-        $tenant=new Tenant($data);
-        $tenant->save();
+        if (isset($data)) {
+            # code...
+            $this->createRoomPayment($data);
+        }
+
         return View::make('admin.rooms.list')
         ->with([
           'success'=>'user has been assigned new room',
@@ -68,6 +75,59 @@ class BookingsController extends Controller
         ]);
 
     }
+
+    public function createRoomPayment(array $params)
+      {
+        
+
+        $payment=Payments::where('users_id',$params['users_id'])->first();
+
+        if (is_null($payment)) {
+            # code...
+            return redirect()->back()->with('error','user has no balance hence cannot be assigned room');
+        }
+
+        $room=Rooms::find($params['rooms_id']);
+        $amountPaid=$payment->amount;
+        $roomPrice=$room->price;
+
+        if ($amountPaid >= $roomPrice) {
+            # code...
+            $periodofstay=$amountPaid/$roomPrice;
+        }
+        else{
+
+            return redirect()->back()->with('error','amount paid is not enough for the specifed room');
+        }
+        $params['periodofpayment']=$periodofstay;
+        $params['expirydate']=Carbon::now()->addMonths($periodofstay);
+        $params['payments_id']=$payment->id;
+
+        if (isset($params['payments_id'])) {
+            # code...
+            $payment->update(['status' => 0]);
+        }
+        try {
+         $newroomPayment= new room_payments($params);
+         $newroomPayment->save();
+
+          $this->saveTenant($params);
+        }
+         catch (Exception $e) {
+             throw new InvalidArgumentException($e->getMessage());
+        }
+
+         
+      }
+
+       private function saveTenant(array $params)
+       {
+
+        $tnt = new Tenant($params);
+        $tnt->save();
+       }
+
+
 
     /**
      * Display the specified resource.
@@ -95,6 +155,7 @@ class BookingsController extends Controller
     public function edit($id)
     {
         //
+
     }
 
     /**
@@ -118,5 +179,13 @@ class BookingsController extends Controller
     public function destroy($id)
     {
         //
+        $room=Rooms::find($id);
+        $newApartment=$room->apartment;
+        //dd($newApartment);
+        $tenant=Tenant::where('rooms_id',$id,true)->delete();
+        return redirect()
+        ->route('admin.rooms.show',$newApartment->id)
+        ->with('message','room has been succesfully cleared');
+
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Models\Bookings;
 use App\Http\Controllers\Controller;
 
-class RoomsController extends Controller
+class rBookings extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +16,21 @@ class RoomsController extends Controller
     public function index()
     {
         //
+        $user=auth('admin')->user();
+        if ($user->isSuperAdmin()) {
+          // code...
+          $bookings=Bookings::all();
+        }
+        else
+        {
+        $bookings=Bookings::all()
+        ->where('apartments_id',$user->apartment->id)
+        ->orderBy('created_at','desc');
+        }
+
+        return view('admin.rbookings.list',[
+          'bookings'=>$bookings
+        ]);
     }
 
     /**
@@ -36,6 +52,7 @@ class RoomsController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**

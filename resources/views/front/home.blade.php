@@ -52,7 +52,7 @@
          @endif
        </div>
      </section>
-  </main> 
+  </main>
  </div>
  </div>
 @endsection

@@ -65,8 +65,16 @@
   margin: 1em;
 }
 
+.apartments-cover select.select {
+  width: 10rem;
+  background-color: #bab8af;
+  border-radius: 3px;
+  margin-left: 1em;
+  padding: 3px 5px;
+}
+
 .apartments-cover .apartment-wrapper {
-  height: 300px;
+  height: 350px;
 }
 
 .apartments-cover .image-section {

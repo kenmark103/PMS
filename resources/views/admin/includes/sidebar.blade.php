@@ -30,7 +30,19 @@
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
-
+      @if(auth('admin')->user()->isSuperAdmin())
+      <li class="treeview">
+        <a href="{{route('admin.payments.index')}}">
+          <i class="fa fa-eur"></i> <span>Finances</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('admin.payments.index')}}"><i class="fa fa-circle-o"></i>Show</a></li>
+        </ul>
+      </li>
+      @endif
       <li class="treeview">
         <a href="">
           <i class="fa fa-table"></i> <span>Apartments</span>
@@ -66,6 +78,18 @@
         <ul class="treeview-menu">
           <li><a href="{{route('admin.customers.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
           <li><a href="{{route('admin.customers.create')}}"><i class="fa fa-circle-o"></i>Create</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="">
+          <i class="fa fa-laptop"></i>
+          <span>Bookings</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('admin.rmBkngs.index')}}"><i class="fa fa-circle-o"></i> List</a></li>
         </ul>
       </li>
 <?php if (auth('admin')->user()->isSuperAdmin()): ?>

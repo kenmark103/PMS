@@ -14,11 +14,28 @@ class Rooms extends Model
     public function apartment(){
       return $this->belongsTo('App\Models\Apartments','apartments_id');
     }
-    public function tenants(){
+    public function roompayments()
+    {
+      return $this->hasmany('App\Models\room_payments','rooms_id');
+    }
+    public function tenants()
+    {
       return $this->hasMany('App\Models\Tenant','rooms_id');
+    }
+    public function bookings()
+    {
+      return $this->hasMany('App\Models\Bookings','rooms_id')->withTimestamps();
+    }
+    public function usersBooked()
+    {
+      return $this->belongsToMany('App\User','bookings','users_id','rooms_id')->withTimestamps();
     }
     public function users()
     {
       return $this->belongsToMany('App\User','tenants','rooms_id','users_id')->withTimestamps();
+    }
+    public function usersPayments()
+    {
+      return $this->belongsToMany('App\Models\User','room_payments','rooms_id','users_id')->withTimestamps();
     }
 }

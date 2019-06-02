@@ -35,7 +35,7 @@
                                           <a href="{{ route('admin.apartments.show', $apartment->id) }}" class="btn btn-default btn-sm"><i class="fa fa-eye"></i> Show</a>
                                           <?php if (auth('admin')->user()->isSuperAdmin()): ?>
                                           <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
-                                          <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete</button>
+                                          <button onclick="return confirm('Are you sure? All apartment records will be lost without a way to retrieve them')" type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete</button>
                                           <?php endif; ?>
                                       </div>
                                   </form>
