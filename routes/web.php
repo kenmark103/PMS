@@ -38,6 +38,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], 
 
 Route::namespace('Front')->group(function () {
     Route::get('/', 'ApartmentController@index')->name('properties.welcome');
+    Route::get('/showrooms{id}', 'HomeController@showRoom')->name('home.showrooms');
     Route::group(['as' => 'front.' ], function ()
      {
        Route::resource('apartments', 'ApartmentController');

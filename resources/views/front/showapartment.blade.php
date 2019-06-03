@@ -7,11 +7,11 @@
 @endsection
 @section('content')
 <?php if (isset($apartment)): ?>
-  <div class="container-fluid showapartment col-md-11">
+  <div class="container showapartment col-md-11 px-2">
     <div class="row">
       <div class="box col-md-9">
         <section class="box-heading row shadow-sm">
-          <div class="house-image col-md-4 py-4">
+          <div class="house-image col-md-4 py-2">
             <img src="{{asset("storage/$apartment->cover")}}" alt="">
           </div>
           <div class="house-heading col-md-8 py-4">
@@ -107,9 +107,7 @@
       <aside class="aside-right col-md-3">
         <div class="services my-3 py-2 container">
           <label for=""><b>Services</b></label>
-          <div class="services-wrapper mx-3">
-              {{$apartment->description}}
-          </div>
+          {{$apartment->description}}
         </div>
         <div class="caretaker py-4">
           <div class="card col-md-10">

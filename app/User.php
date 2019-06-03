@@ -45,7 +45,7 @@ class User extends Authenticatable
     }
     public function bookings()
     {
-      return $this->hasMany('App\Models\Bookings','users_id')->withTimestamps();
+      return $this->hasMany('App\Models\Bookings','users_id');
     }
     public function tenants()
     {
@@ -57,11 +57,11 @@ class User extends Authenticatable
     }
     public function rooms()
     {
-      return $this->belongsToMany('App\Models\Rooms','tenants','users_id','rooms_id')->withTimestamps();
+      return $this->belongsToMany('App\Models\Rooms','tenants','users_id','rooms_id');
     }
-    public function roomPayments()
+    public function paidRooms()
     {
-      return $this->belongsToMany('App\Models\Rooms','room_payments','users_id','rooms_id')->withTimestamps();
+      return $this->belongsToMany('App\Models\Rooms','room_payments','users_id','rooms_id');
     }
     public function messages()
     {

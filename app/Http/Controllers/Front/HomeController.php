@@ -6,7 +6,10 @@ use App\Models\Apartments;
 use App\Models\Bookings;
 use App\Models\Rooms;
 use Illuminate\Http\Request;
+use App\Models\room_payments;
+use App\Models\Payments;
 use Auth;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -49,8 +52,20 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id)
+    public function store(Request $request)
     {
+      $this->validate($request,[
+          'users_id'=>'required',
+          'amount'=>'required|regex:/^\d+(\.\d{1,2})?$/',
+          'uniqueid'=>'required|min:6|alpha_num|unique:payments',
+      ]);
+
+      $data=$request->except('_token','_method');
+      $newPayment= new Payments($data);
+      $newPayment->save();
+
+      return redirect()->route('front.homextends.payments',auth()->id())->with('success','your payment has been added succesfully');
+
 
     }
 
@@ -63,6 +78,19 @@ class HomeController extends Controller
     public function show($id)
     {
         //
+        $userpayments = Payments::all()->where('users_id',$id);
+        return view('front.homextends.payments',[
+          'mypayments' =>$userpayments,
+        ]);
+    }
+
+    public function showRoom($id)
+    {
+        //
+        $userooms =room_payments::where('users_id',$id)->get();
+        return view('front.homextends.rooms',[
+          'myrooms' =>$userooms,
+        ]);
     }
 
     /**
@@ -101,7 +129,6 @@ class HomeController extends Controller
     public function update(Request $request, $id)
     {
         //
-
     }
 
     /**

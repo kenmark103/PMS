@@ -30,7 +30,6 @@
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
-      @if(auth('admin')->user()->isSuperAdmin())
       <li class="treeview">
         <a href="{{route('admin.payments.index')}}">
           <i class="fa fa-eur"></i> <span>Finances</span>
@@ -39,10 +38,13 @@
           </span>
         </a>
         <ul class="treeview-menu">
+          @if(auth('admin')->user()->isSuperAdmin())
           <li><a href="{{route('admin.payments.index')}}"><i class="fa fa-circle-o"></i>Show</a></li>
+          @endif
+          <li><a href="{{route('admin.payments.show',auth('admin')->id())}}"><i class="fa fa-circle-o"></i>List</a></li>
         </ul>
       </li>
-      @endif
+      
       <li class="treeview">
         <a href="">
           <i class="fa fa-table"></i> <span>Apartments</span>

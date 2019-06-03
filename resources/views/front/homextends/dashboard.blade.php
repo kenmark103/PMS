@@ -37,7 +37,7 @@
                       <input id="btn-input" type="text" name="message" class="form-control input-sm" placeholder="Type your message here..." v-model="newMessage" @keyup.enter="sendMessage">
                       <span class="input-group-btn">
                           <button class="btn btn-primary btn-sm py-2" id="btn-chat" @click="sendMessage">
-                              Send <i class="fa fa-reply fa-lg"></i>
+                              Send <i class="fa fa-reply fa-sm"></i>
                           </button>
                       </span>
                   </div>
@@ -48,22 +48,46 @@
 </div>
 
 <div class="container payment-section">
-  <form class="" action="index.html" method="post">
-    <div>
+  <h4>Validator api token</h4>
+  <form class="" action="" method="post">
+    <div class="col-md-10">
       <div class="input-group">
           <input id="paymnt-input" type="text" name="payment" class="form-control input-sm" placeholder="Type your payment code here ie. NZXccVB879" v-model="newMessage" @keyup.enter="sendMessage">
           <span class="input-group-btn">
-              <button class="btn btn-primary btn-sm py-2" id="btn-send" @click="sendMessage">
-                  Send <i class="fa fa-bank fa-lg"></i>
+              <button class="btn btn-success btn-sm py-2" id="btn-send" @click="sendMessage">
+                  Send <i class="fa fa-bank fa-sm"></i>
               </button>
           </span>
       </div>
     </div>
-  <div class="input-group">
+  <div class="form-group">
     <label for="upload-image">Upload image of receipt etc</label>
     <input type="file" name="upload-image" value="" id="upload-image">
   </div>
   </form>
+  <div class="col-md-10">
+    <h4>Add payment</h4>
+    <form class="form" action="{{route('front.home.store')}}" method="post">
+     @csrf
+        <div class="form-group">
+          <label for="uname">User Name</label>
+          <select class="form-control" name="users_id" id="uname">
+            <option value="{{auth()->id()}}">{{auth()->user()->name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="amount">Amount paid</label>
+          <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount paid">
+        </div>
+        <div class="form-group">
+          <label for="ucode">Payment code</label>
+          <input type="text" class="form-control" id="ucode" name="uniqueid" placeholder="Unique ID // Unique code">
+        </div>
+        <div class="btn-group">
+          <button type="submit" name="addpayment" class="btn btn-primary">Add Payment</button>
+        </div>
+    </form>
+  </div>
 </div>
 <script>
     export default {

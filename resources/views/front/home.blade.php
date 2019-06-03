@@ -17,19 +17,19 @@
                  <i class="fa fa-bell"></i> Notices
                  </a>
                  </li>
-                <li data-toggle="collapse" data-target="#service" class="collapsed">
-                  <a href="#"><i class="fa fa-globe"></i> Services <span class="arrow"></span></a>
-                </li>
-                <ul class="sub-menu collapse" id="service">
-                  <li>New Service 1</li>
-                  <li>New Service 2</li>
-                </ul>
-
                  <li>
                   <a href="#">
-                  <i class="fa fa-user"></i> Profile
+                  <i class="fa fa-globe"></i> Services
                   </a>
                   </li>
+                <li data-toggle="collapse" data-target="#service" class="collapsed">
+                  <a href="#"><i class="fa fa-user"></i> Profile <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="service">
+                  <li><a href="{{route('front.home.show',auth()->id())}}">Payments</a></li>
+                  <li><a href="{{route('home.showrooms',auth()->id())}}">Rooms</a></li>
+                  <li><a href="#">profile</a></li>
+                </ul>
             </ul>
      </div>
 </div>
@@ -44,7 +44,7 @@
          <div class="row">
           @foreach($apartments as $apartment)
            <a href="{{route('front.apartments.show',$apartment->id)}}" class="col-md-3">
-             <img src="{{asset("storage/$apartment->cover")}}" style="width:100%; height:auto;">
+             <img src="{{asset("storage/$apartment->cover")}}" style="width:100%; height: 10em;">
              <caption class="text-center">{{$apartment->name}}</caption>
            </a>
            @endforeach

@@ -1,25 +1,36 @@
 @extends('front.layout.app')
 @section('content')
-<div class="content col-md-11">
+<div class="content">
   <?php if ($apartments): ?>
     <div class="apartments-cover container-fluid">
-      <div class="heading row">
+      <div class="heading row shadow-sm">
         <div class="subheading col-md-3 py-2">
           <h3 class="">Apartments</h3>
         </div>
         <div class="search-container col-md-9 py-2">
           <strong>Filter room</strong>
           <select class="select" name="">
-            <option value="">Apartment</option>
+            @foreach($apartments as $apartment)
+              <option value="{{$apartment->id}}">{{$apartment->name}}</option>
+            @endforeach
           </select>
           <select class="select" name="">
             <option value="">price</option>
+            <option value="">10,000</option>
+            <option value="">20,000</option>
+            <option value="">30,000</option>
+            <option value="">above</option>
           </select>
           <select class="select" name="">
-            <option value="">location</option>
+            @foreach($apartments as $apartment)
+              <option value="{{$apartment->id}}">{{$apartment->location}}</option>
+            @endforeach
           </select>
           <select class="select" name="">
             <option value="">type</option>
+            <option value="">bedsitter</option>
+            <option value="">1 bedroom</option>
+            <option value="">2 bedroom</option>
           </select>
           <button type="submit" name="button" class="btn btn-default">Search</button>
         </div>
@@ -33,7 +44,7 @@
               <address class="address-block">
                 <strong id="apartment">{{$apartment->name}}</strong><br>
                 <small id="location">location: {{$apartment->location}}</small><br>
-                <small id="rooms">rooms: {{$apartment->rooms->count()}}</small>
+                <small id="rooms">rooms:<span class="room-color">{{$apartment->rooms->count()}}</span></small>
               </address>
             </a>
           <?php endforeach; ?>

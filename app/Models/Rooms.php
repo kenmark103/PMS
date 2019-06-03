@@ -24,18 +24,18 @@ class Rooms extends Model
     }
     public function bookings()
     {
-      return $this->hasMany('App\Models\Bookings','rooms_id')->withTimestamps();
+      return $this->hasMany('App\Models\Bookings','rooms_id');
     }
     public function usersBooked()
     {
-      return $this->belongsToMany('App\User','bookings','users_id','rooms_id')->withTimestamps();
+      return $this->belongsToMany('App\User','bookings','users_id','rooms_id');
     }
     public function users()
     {
-      return $this->belongsToMany('App\User','tenants','rooms_id','users_id')->withTimestamps();
+      return $this->belongsToMany('App\User','tenants','rooms_id','users_id');
     }
     public function usersPayments()
     {
-      return $this->belongsToMany('App\Models\User','room_payments','rooms_id','users_id')->withTimestamps();
+      return $this->belongsToMany('App\User','room_payments','rooms_id','users_id');
     }
 }

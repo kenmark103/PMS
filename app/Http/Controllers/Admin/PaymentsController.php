@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Apartments;
 use App\Models\Payments;
 use View;
+use App\Models\Tenant;
 use App\Models\room_payments;
+use App\Models\Rooms;
+use App\User;
 use carbon\carbon;
 
 class PaymentsController extends Controller
@@ -24,12 +28,33 @@ class PaymentsController extends Controller
 
     public function index()
     {
-        //
+
+        //Occupied and Unoccupied rooms
+        $rooms=Rooms::all()->pluck('price');
+        $occupiedRooms=Tenant::all();
+        $unoccupiedRooms=Rooms::doesntHave('users')->get();
+        $unoccupiedRoomsCount=$rooms->count()-$occupiedRooms->count();
+        //dd($unoccupiedRooms);
+        //Account Statement
+        $payments=Payments::all()->pluck('amount');
+        $account=array();
+        foreach ($payments as $userspayment => $up) {
+           $account[]=$up;
+        }
+
+        //Maximum apartments returns
+        $maxreturns = array();
+
+        foreach ($rooms as $roomprices => $rp) {
+
+          $maxreturns[]=$rp;
+        }
+
+        //Payments for room occupants
         $userPayments=room_payments::all();
-        $items = array();
+        $mnthlyitems = array();
         $unpaidroom = array();
         foreach ($userPayments as $upayment) {
-          //
           $expirydate=Carbon::parse($upayment->expirydate);
           $datedeadline=Carbon::parse('first day of this month')->addDays(9);
           $datediff=$expirydate->diffInDays($datedeadline);
@@ -42,6 +67,19 @@ class PaymentsController extends Controller
             $unpaidroom[] =$upayment->room->amount;
           }
         }
+        //apartments
+        $apartments = Apartments::with('rooms')->get();
+        foreach ($apartments as $apartment => $ap) {
+            # code...
+            $revenue=array();
+            foreach ($ap->tenants as $ap) {
+                # code...
+                $revenue[]=$ap->room->price;
+            }
+            $totalrevenue=array_sum($revenue);
+        }
+
+        //summations
 
         $totalMonthlyincome=array_sum($mnthlyitems);
 
@@ -49,12 +87,23 @@ class PaymentsController extends Controller
 
         $expectedIncome=$totalMonthlyincome + $totalUnpaidrooms;
 
+        $totalMaxReturns = array_sum($maxreturns);
+
+        $accountStatement= array_sum($account);
+
 
 
         return View::make('admin.finances.show',[
           'monthlyIncome'=>$totalMonthlyincome,
           'unpaidRooms'=>$totalUnpaidrooms,
           'expectedIncome'=>$expectedIncome,
+          'maxReturns'=>$totalMaxReturns,
+          'aStatement' =>$accountStatement,
+          'Orooms' =>$occupiedRooms,
+          'Urooms' =>$unoccupiedRoomsCount,
+          'rooms'=>$rooms,
+          'apartments'=>$apartments,
+          'totalrevenue'=>$totalrevenue,
         ]);
     }
 
@@ -79,15 +128,15 @@ class PaymentsController extends Controller
         //
         $this->validate($request,[
             'users_id'=>'required',
-            'amount'=>'required',
-            'uniqueid'=>'required|min:6|unique:payments',
+            'amount'=>'required|regex:/^\d+(\.\d{1,2})?$/',
+            'uniqueid'=>'required|min:6|alpha_num|unique:payments',
         ]);
 
         $data=$request->except('_token','_method');
         $newPayment= new Payments($data);
         $newPayment->save();
 
-        return redirect()->back()->with('message','payment has been added');
+        return redirect()->route('admin.payments.show',auth('admin')->id())->with('message','payment has been added');
     }
 
     /**
@@ -99,6 +148,10 @@ class PaymentsController extends Controller
     public function show($id)
     {
         //
+        $user=User::find($id);
+
+        $payments=Payments::all();
+        return view('admin.finances.list',['payments'=>$payments]);
     }
 
     /**

@@ -139,7 +139,7 @@ class BookingsController extends Controller
     {
         //
         $room=Rooms::find($id);
-        $users=User::all();
+        $users=User::doesntHave('rooms')->get();
         return view('admin.rooms.assign',[
           'users'=>$users,
           'room'=>$room,

@@ -9,7 +9,8 @@
 
 }
 .finances .heading{
- height: 8rem;
+ min-height: 8rem;
+ max-height: 15rem;
  background-color: #004422;
  color: #f8fafc;
  font-weight: bold;
@@ -26,13 +27,28 @@
   justify-content: center;
   align-content: center;
 }
+.finances .account-statement{
+  height: 8rem;
+  color: #f8fafc;
+  font-weight: bold;
+  line-height: normal;
+  padding: auto;
+  border-radius: 3px;
+
+}
+.account{
+  background-color: #f66d9b;
+  height: inherit;
+  padding-top: .5em;
+  padding: .5em;
+}
 .aparments-finance-wrapper{
   margin-top: 2em;
   background-color: #c9df8a;
 }
 .finances .apartment{
  height: 15em;
- margin: 1em;
+ margin: 1em 2em;
  background-color: #f0f7da;
 }
 .apartment .highlight{
@@ -64,35 +80,45 @@
                     <div class="row">
                       <div class="col-md-10 col-md-offset-1">
                         <section class="heading shadow-sm">
-                          <h4 class="col-md-4 shadow-sm text-center">Your current balances is <b>@isset($monthlyIncome)${{$monthlyIncome}} @endif</b></h4>
+                          <h4 class="col-md-4 shadow-sm text-center">Your income statement is <b>@isset($monthlyIncome)${{$monthlyIncome}} @endif</b></h4>
                           <h4 class="col-md-4 shadow-sm text-center">expected revenue <b>@isset($expectedIncome)${{$expectedIncome}} @endif</b></h4>
-                          <h4 class="col-md-4 shadow-sm text-center">apartments maximum <b>$100000</b></h4>
+                          <h4 class="col-md-4 shadow-sm text-center">apartments maximum <b>@isset($maxReturns)${{$maxReturns}}@endif</b></h4>
                         </section>
                         <section class="assets text-center">
-                          <div class="col-md-4 shadow-sm">
-                            Occupied rooms total <br>
-                            <h3>300</h3>
+                          <div class="col-md-3 shadow-sm">
+                            Total apartment rooms <br>
+                            <h3>@isset($rooms){{$rooms->count()}}@endif</h3>
                           </div>
-                        <div class="col-md-4 shadow-sm">
+                          <div class="col-md-3 shadow-sm">
+                            Occupied rooms total <br>
+                            <h3>@isset($Orooms){{$Orooms->count()}}@endif</h3>
+                          </div>
+                        <div class="col-md-3 shadow-sm">
                             Total unoccupied rooms <br>
-                            <h3>30</h3>
+                            <h3>@isset($Urooms){{$Urooms}}@endif</h3>
                         </div>
-                        <div class="col-md-4 shadow-sm">
-                          set to pay total expired <br>
-                          <h3>30</h3>
+                        <div class="col-md-3 shadow-sm">
+                          yet to pay total, expired <br>
+                          <h3>@isset($unpaidRooms){{$unpaidRooms}}@endif</h3>
                         </div>
+                        </section>
+                        <section class="account-statement">
+                          <h4 class="col-md-4 col-sm-12 pull-right text-center account">Account statement <br><br> <b>@isset($aStatement)${{$aStatement}}@endif</b></h4>
                         </section>
                       </div>
                       <section class="aparments-finance-wrapper col-md-12 my-3">
                         <h4>Apartments</h4>
+                        @isset($apartments)
+                        @foreach($apartments as $apartment)
                         <div class="col-md-3 apartment">
-                          <div class="apartment-subheading">
-                            <h5><strong>Apartment &nbsp;<span class="highlight">Revenue 150,000</span></strong></h5>
-                          </div>
-                          Occupied rooms <b>100</b><br>
-                          Occupied unpaid rooms <b>5</b> <button type="button" class="btn btn-default btn-sm" name="button">show</button><br>
-                          Unoccupied rooms <b>5</b> <button type="button" class="btn btn-default btn-sm" name="button">show</button>
+                            <h5><strong>{{$apartment->name}}</strong></h5><br>
+                          <span class="highlight">Revenue {{$totalrevenue}}</span><br>
+                          Total rooms <b>{{$apartment->rooms->count()}}</b><br>
+                          Occupied rooms <b>{{$apartment->tenants->count()}}</b> <a href="{{route('admin.rooms.show',$apartment->id)}}" role="button" class="btn btn-default btn-sm" name="button">show</a><br>
+                          Unoccupied rooms <b>_unk</b> <a href="{{route('admin.rooms.show',$apartment->id)}}" role="button" class="btn btn-default btn-sm" name="button">show</a>
                         </div>
+                        @endforeach
+                        @endif
                       </section>
                     </div>
                   </div>

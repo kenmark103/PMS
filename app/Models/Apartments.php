@@ -24,6 +24,9 @@ class Apartments extends Model
       return $this->hasMany('App\Models\Booking','apartments_id');
     }
     public function tenants(){
+      return $this->hasMany('App\Models\Tenant','apartments_id');
+    }
+    public function users(){
       return $this->hasManyThrough('App\User','App\Models\Tenant','apartments_id','users_id');
     }
     public function bookedRooms(){

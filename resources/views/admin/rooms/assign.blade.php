@@ -34,7 +34,7 @@
       @include('shared.errors-and-messages')
         <div class="box">
             <div class="header">
-              <h2>assign room <small>{{$room->apartment->name}}&nbsp;{{$room->room_no}}</small></h2>
+              <h2>assign room <small>{{$room->apartment->name}}&nbsp;{{$room->room_no}} &nbsp; for {{$room->price}}</small></h2>
               </div>
               @include('shared.search',['route' => route('admin.bookings.index')])
                 <form action="{{ route('admin.bookings.store') }}" method="post" class="form">
@@ -42,13 +42,13 @@
                         {{ csrf_field() }}
                         <?php if (isset($users)): ?>
                         <div class="users-wrapper">
-                          <small>select one user</small>
+                          <small> kindly note the figures on right side indicate users account balance</small>
                           <div class="users-container py-4 my-4">
                           <?php foreach ($users as $user): ?>
                             <div class="input-group col-md-4">
                               <input type="hidden" name="rooms_id" value="{{$room->id}}">
                               <input type="radio" name="users_id" value="{{$user->id}}" class="user-radio">
-                              <label for="user" class="user-label">{{$user->name}}</label>
+                              <label for="user" class="user-label">{{$user->name}} @isset($user->payments) @foreach($user->payments as $up) {{$up->amount}} @endforeach @endif</label>
                             </div>
                           <?php endforeach; ?>
                          </div>
