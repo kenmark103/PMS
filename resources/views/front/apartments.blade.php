@@ -10,9 +10,20 @@
         <div class="search-container col-md-9 py-2">
           <strong>Filter room</strong>
           <select class="select" name="">
-            @foreach($apartments as $apartment)
-              <option value="{{$apartment->id}}">{{$apartment->name}}</option>
-            @endforeach
+            <option value="">Apartment</option>
+            <option value="">Awesome</option>
+            <option value="">Royals</option>
+            <option value="">Pink</option>
+            <option value="">Blacks</option>
+            <option value="">Legends</option>
+          </select>
+          <select class="select" name="">
+            <option value="">Location</option>
+            <option value="">Narok</option>
+            <option value="">Eldoret</option>
+            <option value="">Juja</option>
+            <option value="">Mombasa</option>
+            <option value="">Nairobi</option>
           </select>
           <select class="select" name="">
             <option value="">price</option>
@@ -20,11 +31,6 @@
             <option value="">20,000</option>
             <option value="">30,000</option>
             <option value="">above</option>
-          </select>
-          <select class="select" name="">
-            @foreach($apartments as $apartment)
-              <option value="{{$apartment->id}}">{{$apartment->location}}</option>
-            @endforeach
           </select>
           <select class="select" name="">
             <option value="">type</option>

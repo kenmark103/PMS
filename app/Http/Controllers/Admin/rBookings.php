@@ -19,13 +19,13 @@ class rBookings extends Controller
         $user=auth('admin')->user();
         if ($user->isSuperAdmin()) {
           // code...
-          $bookings=Bookings::all()->sortBy('apartments_id');
+          $bookings=Bookings::orderBy('created_at','desc')->paginate(10);
         }
         else
         {
-        $bookings=Bookings::all()
+        $bookings=Bookings::orderBy('created_at','desc')
         ->where('apartments_id',$user->apartment->id)
-        ->sortBy('created_at');
+        ->paginate(10);
         }
 
         return view('admin.rbookings.list',[

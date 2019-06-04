@@ -49,6 +49,12 @@
                         <label for="price">Price<span class="text-danger">*</span></label>
                         <input type="text" name="price" id="price"  placeholder="price" class="form-control" value="{{ old('price')}}">
                     </div>
+
+                    <div class="form-group">
+                        <label for="images">Rooms images</label>
+                        <input type="file" name="images[]" id="image" class="form-control" multiple>
+                        <span class="text-warning">You can use ctr (cmd) to select multiple images</span>
+                    </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <div class="btn-group">

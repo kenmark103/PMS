@@ -1,5 +1,6 @@
 @extends('front.home')
 @section('main')
+@include('shared.errors-and-messages')
 <div class="card-wrapper col-md-8 col-md-offset-2">
   <div class="card">
     @if(isset($room))
@@ -9,7 +10,6 @@
     @endif
   </div>
 </div>
-@include('shared.errors-and-messages')
  <div class="container-fluid my-4">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -51,20 +51,26 @@
   <h4>Validator api token</h4>
   <form class="" action="" method="post">
     <div class="col-md-10">
-      <div class="input-group">
-          <input id="paymnt-input" type="text" name="payment" class="form-control input-sm" placeholder="Type your payment code here ie. NZXccVB879" v-model="newMessage" @keyup.enter="sendMessage">
-          <span class="input-group-btn">
-              <button class="btn btn-success btn-sm py-2" id="btn-send" @click="sendMessage">
-                  Send <i class="fa fa-bank fa-sm"></i>
-              </button>
-          </span>
+      <div class="form-group">
+        <label for="account-details">Account</label>
+        <input type="text" name="account" id="account-details" class="form-control" placeholder="account number ie 0254445212">
       </div>
-    </div>
+      <div class="form-group">
+        <div class="input-group col-md-8">
+            <input id="paymnt-input" type="text" name="payment" class="form-control input-sm" placeholder="Type your payment code here ie. NZXccVB879" v-model="newMessage" @keyup.enter="sendMessage">
+            <span class="input-group-btn">
+                <button class="btn btn-success btn-sm py-2" id="btn-send" @click="sendMessage">
+                    Send <i class="fa fa-bank fa-sm"></i>
+                </button>
+            </span>
+        </div>
+      </div>
   <div class="form-group">
     <label for="upload-image">Upload image of receipt etc</label>
     <input type="file" name="upload-image" value="" id="upload-image">
   </div>
-  </form>
+</div>
+</form>
   <div class="col-md-10">
     <h4>Add payment</h4>
     <form class="form" action="{{route('front.home.store')}}" method="post">

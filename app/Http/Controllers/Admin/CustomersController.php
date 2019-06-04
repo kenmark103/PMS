@@ -27,14 +27,8 @@ class CustomersController extends Controller
         //
         $admin=auth('admin')->user();
         if ($admin->isSuperAdmin()) {
-
-          /** code...
-          **$customers=User::with(['tenants' => function ($query) {
-          **$query->orderBy('apartments_id', 'desc');
-         **}],'tenants.room')->get()->first();
-         **$customers->loadRoom;
-         **/
-          $customers=Tenant::all();
+            
+          $customers=Tenant::orderBy('created_at','desc')->paginate(15);
           if (is_null($customers)) {
             // code
             return redirect()->back()->with('error','you have no customers');
@@ -47,7 +41,7 @@ class CustomersController extends Controller
             return redirect()->back()->with('error','you have no assigned apartment');
           }
           $id=$caretaker->apartment->id;
-          $customers=Tenant::all()->where('apartments_id',$id);
+          $customers=Tenant::orderBy('created_at','desc')->where('apartments_id',$id)->paginate(15);
           if (is_null($customers)) {
             // code
             return redirect()->back()->with('error','you have no customers');

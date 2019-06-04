@@ -150,7 +150,7 @@ class PaymentsController extends Controller
         //
         $user=User::find($id);
 
-        $payments=Payments::all();
+        $payments=Payments::orderBy('created_at','desc')->paginate(15);
         return view('admin.finances.list',['payments'=>$payments]);
     }
 

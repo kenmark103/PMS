@@ -22,15 +22,17 @@
                     <table class="table">
                         <tbody>
                             <tr>
+                                <td class="col-md-1">Id</td>
                                 <td class="col-md-3">Name</td>
                                 <td class="col-md-3">Date</td>
                                 <td class="col-md-3">Payment ID</td>
-                                <td class="col-md-3">Amount</td>
+                                <td class="col-md-2">Amount</td>
                             </tr>
                         </tbody>
                         <tbody>
                         @foreach ($payments as $payment)
                             <tr>
+                                <td>{{$payment->id}}</td>
                                 <td>{{$payment->user->name}}</td>
                                 <td>{{date('d M Y - H:i:s', $payment->created_at->timestamp) }}</td>
                                 <td>{{$payment->uniqueid}}</td>
@@ -53,6 +55,7 @@
                       <a href="{{ URL::previous() }}" class="btn btn-default">Back</a>
                   </div>
                 </div>
+                {{$payments->links()}}
             </div>
             <!-- /.box -->
 

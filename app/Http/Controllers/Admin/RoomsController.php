@@ -132,9 +132,14 @@ class RoomsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
         //
+        $room=Rooms::find($id);
+        return view('admin.rooms.edit',[
+          'room'=>$room,
+          'images' => $room->images()->get(['source']),
+        ]);
 
     }
 

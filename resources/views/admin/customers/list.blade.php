@@ -54,6 +54,7 @@
                      <a href="{{route('admin.customers.create')}}"><button type="btn" name="links" class="btn btn-default"> new customer</button></a>
                </div>
                <!-- /.box-body -->
+               {{$customers->links()}}
            </div>
            <!-- /.box -->
        @endif

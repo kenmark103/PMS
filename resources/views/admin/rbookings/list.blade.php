@@ -52,7 +52,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    bookings->links
+                    {{$bookings->links()}}
                 </div>
             </div>
             <!-- /.box -->

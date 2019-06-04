@@ -112,10 +112,25 @@
                         @foreach($apartments as $apartment)
                         <div class="col-md-3 apartment">
                             <h5><strong>{{$apartment->name}}</strong></h5><br>
-                          <span class="highlight">Revenue {{$totalrevenue}}</span><br>
+
+                          <span class="highlight">Revenue 
+                          @isset($apartment->tenants)
+                          @php($revenue=array())
+                          @foreach($apartment->tenants as $t)
+                          @php($revenue[]=$t->room->price)
+                          @php($trevenue=array_sum($revenue))
+                          @endforeach
+                          {{$trevenue}}
+                          @endif
+                        </span><br>
+
                           Total rooms <b>{{$apartment->rooms->count()}}</b><br>
-                          Occupied rooms <b>{{$apartment->tenants->count()}}</b> <a href="{{route('admin.rooms.show',$apartment->id)}}" role="button" class="btn btn-default btn-sm" name="button">show</a><br>
-                          Unoccupied rooms <b>_unk</b> <a href="{{route('admin.rooms.show',$apartment->id)}}" role="button" class="btn btn-default btn-sm" name="button">show</a>
+
+                          Occupied rooms <b>{{$apartment->tenants->count()}}</b>
+                          <a href="{{route('admin.rooms.show',$apartment->id)}}" role="button" class="btn btn-default btn-sm" name="button">show</a><br>
+                          
+                          Unoccupied rooms <b>_unknwn</b>
+                          <a href="{{route('admin.rooms.show',$apartment->id)}}" role="button" class="btn btn-default btn-sm" name="button">show</a>
                         </div>
                         @endforeach
                         @endif

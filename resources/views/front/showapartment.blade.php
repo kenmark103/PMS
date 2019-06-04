@@ -49,6 +49,7 @@
                               </div>
                               <!-- Modal footer -->
                               <div class="modal-footer">
+                                <a href="#" class="btn btn-default btn-sm">see room</a>
                                 <a href="{{route('front.home.edit',$room->id)}}" class="btn btn-default btn-sm">request room</a>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                               </div>

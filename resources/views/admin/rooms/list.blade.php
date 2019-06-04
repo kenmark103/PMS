@@ -67,7 +67,15 @@
                                    @foreach($room->tenants as $roomtenant)
                                      since &nbsp;{{$roomtenant->created_at->format('d M Y - H:i:s')}}<br>
                                     @endforeach
-                                    @endif <br>
+                                    @endif
+
+                                    @if(isset($room->roompayments))
+                                   @foreach($room->roompayments as $roomp)
+                                    to &nbsp;{{ date('d M Y', strtotime($roomp->expirydate)) }}<br>
+                                    @endforeach
+                                    @endif  
+
+                                    <br>
 
                                   type&nbsp;{{$room->type}}<br>
                                   price&nbsp;{{$room->price}}<br>
