@@ -13,12 +13,22 @@
                   </a>
                 </li>
                 <li>
-                 <a href="#">
+                  <a href="{{route('front.home.show',auth()->id())}}">
+                 <i class="fa fa-bank"></i> Payments
+                 </a>
+                 </li>
+                 <li>
+                  <a href="{{route('home.showrooms',auth()->id())}}">
+                 <i class="fa fa-hotel"></i> Rooms
+                 </a>
+                 </li>
+                 <li>
+                 <a href="{{route('home.notices')}}">
                  <i class="fa fa-bell"></i> Notices
                  </a>
                  </li>
                  <li>
-                  <a href="#">
+                  <a href="{{route('home.services')}}">
                   <i class="fa fa-globe"></i> Services
                   </a>
                   </li>
@@ -26,8 +36,6 @@
                   <a href="#"><i class="fa fa-user"></i> Profile <span class="arrow"></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="service">
-                  <li><a href="{{route('front.home.show',auth()->id())}}">Payments</a></li>
-                  <li><a href="{{route('home.showrooms',auth()->id())}}">Rooms</a></li>
                   <li><a href="#">profile</a></li>
                 </ul>
             </ul>

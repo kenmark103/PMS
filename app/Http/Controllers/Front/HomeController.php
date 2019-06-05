@@ -93,6 +93,23 @@ class HomeController extends Controller
         ]);
     }
 
+    public function notices()
+    {
+        //
+        
+        return view('front.homextends.notices',[
+        ]);
+    }
+
+    public function services()
+    {
+        //
+     
+        return view('front.homextends.services',[
+          
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
