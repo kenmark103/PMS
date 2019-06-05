@@ -4,6 +4,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.min.css')}}">
 @endsection
 @section('content')
 <?php if (isset($apartment)): ?>
@@ -49,7 +50,7 @@
                               </div>
                               <!-- Modal footer -->
                               <div class="modal-footer">
-                                <a href="#" class="btn btn-default btn-sm">see room</a>
+                                <a href="{{route('front.room.show',$room->id)}}" class="btn btn-default btn-sm">see room</a>
                                 <a href="{{route('front.home.edit',$room->id)}}" class="btn btn-default btn-sm">request room</a>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                               </div>

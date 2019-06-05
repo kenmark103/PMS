@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Payments extends Model
 {
     //
+  use Searchable;
+  
     protected $fillable = [
        'users_id','amount','uniqueid','status'
     ];

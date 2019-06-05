@@ -51,7 +51,7 @@
                                 <!-- Modal Header -->
                                 <div class="modal-header">
                                     <h4 class="modal-title">{{$room->room_no}}</h4>
-                                    <a href="#" class="btn btn-default btn-sm">edit</a>
+                                    <a href="{{route('admin.rooms.edit',$room->id)}}" class="btn btn-default btn-sm">edit</a>
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 

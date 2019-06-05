@@ -127,10 +127,10 @@
                           Total rooms <b>{{$apartment->rooms->count()}}</b><br>
 
                           Occupied rooms <b>{{$apartment->tenants->count()}}</b>
-                          <a href="{{route('admin.rooms.show',$apartment->id)}}" role="button" class="btn btn-default btn-sm" name="button">show</a><br>
+                          <a href="{{route('admin.rooms.showRoom',$apartment->id)}}" role="button" class="btn btn-default btn-sm" name="button">show</a><br>
                           
                           Unoccupied rooms <b>_unknwn</b>
-                          <a href="{{route('admin.rooms.show',$apartment->id)}}" role="button" class="btn btn-default btn-sm" name="button">show</a>
+                          <a href="{{route('admin.rooms.showRoom',$apartment->id)}}" role="button" class="btn btn-default btn-sm" name="button">show</a>
                         </div>
                         @endforeach
                         @endif

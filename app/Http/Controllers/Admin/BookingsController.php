@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\User;
 use View;
-use App\Models\Booking;
+use App\Models\Bookings;
 use App\Models\Tenant;
 use App\Models\Apartments;
 use App\Models\Rooms;
@@ -69,7 +69,7 @@ class BookingsController extends Controller
 
         return View::make('admin.rooms.list')
         ->with([
-          'success'=>'user has been assigned new room',
+          'message'=>'user has been assigned new room',
           'apartment'=>$apartment,
           'rooms'=>$rooms,
         ]);
@@ -125,6 +125,8 @@ class BookingsController extends Controller
 
         $tnt = new Tenant($params);
         $tnt->save();
+        $uid=$params['users_id'];
+        $user=Bookings::where('users_id',$uid,true)->delete();
        }
 
 
@@ -184,7 +186,7 @@ class BookingsController extends Controller
         //dd($newApartment);
         $tenant=Tenant::where('rooms_id',$id,true)->delete();
         return redirect()
-        ->route('admin.rooms.show',$newApartment->id)
+        ->route('admin.rooms.showRoom',$newApartment->id)
         ->with('message','room has been succesfully cleared');
 
     }

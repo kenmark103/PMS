@@ -64,7 +64,7 @@ class HomeController extends Controller
       $newPayment= new Payments($data);
       $newPayment->save();
 
-      return redirect()->route('front.homextends.payments',auth()->id())->with('success','your payment has been added succesfully');
+      return redirect()->route('front.home.show',auth()->id())->with('success','your payment has been added succesfully');
 
 
     }

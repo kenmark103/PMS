@@ -28,7 +28,7 @@ class CustomersController extends Controller
         $admin=auth('admin')->user();
         if ($admin->isSuperAdmin()) {
             
-          $customers=Tenant::orderBy('created_at','desc')->paginate(15);
+          $customers=Tenant::orderBy('created_at','desc')->paginate(10);
           if (is_null($customers)) {
             // code
             return redirect()->back()->with('error','you have no customers');

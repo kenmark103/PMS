@@ -27,6 +27,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], 
     Route::namespace('Admin')->group(function () {//add admin routes
     Route::resource('apartments', 'ApartmentsController');
     Route::resource('rooms', 'RoomsController');
+    Route::get('rooms/remove-image-thumb', 'RoomsController@removeThumbnail')->name('rooms.remove.thumb');
+    Route::get('rooms{id}', 'RoomsController@showRoom')->name('rooms.showRoom');
     Route::resource('customers', 'CustomersController');
     Route::resource('employees', 'EmployeesController');
     Route::resource('bookings', 'BookingsController');
@@ -43,6 +45,7 @@ Route::namespace('Front')->group(function () {
      {
        Route::resource('apartments', 'ApartmentController');
        Route::resource('home', 'HomeController');
+       Route::resource('room', 'roomsController');
      });
 });
 

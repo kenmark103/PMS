@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Apartments;
 use App\Models\Rooms;
+use App\Models\rumimages;
 
-use View;
-
-class ApartmentController extends Controller
+class roomsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,8 +18,7 @@ class ApartmentController extends Controller
     {
         //
 
-        $apartments=Apartments::all();
-        return View::make('front.apartments',['apartments'=>$apartments]);
+
     }
 
     /**
@@ -55,13 +51,12 @@ class ApartmentController extends Controller
     public function show($id)
     {
         //
-        $apartment=Apartments::find($id);
-        $rooms=$apartment->rooms;
-        $roomImages=$apartment->roomImages;
-        return view('front.showapartment',[
-          'apartment'=>$apartment,
-          'rooms'=>$rooms,
-          'roomImages'=>$roomImages,
+        $room=Rooms::find($id);
+        $images=$room->images;
+
+        return view('front.room',[
+            'room'=>$room, 
+            'images'=>$images
         ]);
     }
 

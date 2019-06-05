@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Bookings extends Model
 {
+
+    use Searchable;
+    
     //
     protected $fillable = [
         'rooms_id', 'users_id','apartments_id'

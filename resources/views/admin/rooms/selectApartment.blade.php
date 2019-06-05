@@ -96,7 +96,7 @@
                       <li class="apt">
                         <input type="checkbox" id="{{$apartment->name}}" class="apt-input radio">
                         <label for="{{$apartment->name}}" class="apt-label"><img src="{{asset("storage/$apartment->cover")}}"></label>
-                        <a href="{{ route('admin.rooms.show', $apartment->id) }}" class="btn btn-default btn-sm">{{$apartment->name}}</a>
+                        <a href="{{ route('admin.rooms.showRoom', $apartment->id) }}" class="btn btn-default btn-sm">{{$apartment->name}}</a>
                       </li>
                       @endforeach
                     </ul>

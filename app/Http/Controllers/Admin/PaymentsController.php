@@ -149,8 +149,13 @@ class PaymentsController extends Controller
     {
         //
         $user=User::find($id);
-
-        $payments=Payments::orderBy('created_at','desc')->paginate(15);
+        if (request()->has('q')) {
+            $payments = Payments::search(request()->input('q'))->paginate(10);
+        }
+        else
+        {
+            $payments=Payments::orderBy('created_at','desc')->paginate(10);
+        }
         return view('admin.finances.list',['payments'=>$payments]);
     }
 

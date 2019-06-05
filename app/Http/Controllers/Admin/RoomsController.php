@@ -5,11 +5,15 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
+use App\Shop\Tools\UploadableTrait;
+use Illuminate\Http\UploadedFile;
 use App\Models\Apartments;
 use App\Models\Rooms;
+use App\Models\rumimages;
 use Auth;
 use App\Models\Admins;
 use App\User;
+use App\Http\Requests\UpdateRoomRequest;
 
 class RoomsController extends Controller
 {
@@ -55,7 +59,12 @@ class RoomsController extends Controller
 
     public function show($id)
     {
-      $apartment=Apartments::find($id);
+      
+
+    }
+    public function showRoom($id)
+    {
+        $apartment=Apartments::find($id);
       $rooms=$apartment->rooms->load('tenants','tenants.user');
       return view('admin.rooms.list',[
         'apartment'=>$apartment,
@@ -64,6 +73,7 @@ class RoomsController extends Controller
 
 
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -97,19 +107,23 @@ class RoomsController extends Controller
         //
         $this->validate($request,[
             'apartment'=>'required',
-            'roomnumber'=>'required|unique:rooms,apartments_id',
+            'roomnumber'=>'required|unique:rooms,apartments_id,room_no',
             'type'=>'required',
             'price'=>'required'
         ]);
 
-        Rooms::create([
-            'apartments_id'=>$request->apartment,
-            'room_no'=>$request->roomnumber,
-            'type'=>$request->type,
-            'price'=>$request->price,
-        ])->save();
+        $params = $request->except('_token', '_method');
+        $params['apartments_id']=$request->apartment;
+        $params['room_no']=$request->roomnumber;
 
-        return redirect()->route('admin.rooms.show',
+        $room = new Rooms($params);
+        $room->save();
+
+        if (isset($params['images']) && is_array($params['images'])) {
+                $this->saveRmImages($params, $room);
+            }
+
+        return redirect()->route('admin.rooms.showRoom',
         $request->apartment)
         ->with([
             'success'=>'your room has been added succesfully',
@@ -140,7 +154,6 @@ class RoomsController extends Controller
           'room'=>$room,
           'images' => $room->images()->get(['source']),
         ]);
-
     }
 
     /**
@@ -150,11 +163,45 @@ class RoomsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRoomRequest $request, $id)
     {
         //
+        $room = Rooms::find($id);
+
+        $data = $request->except('_token', '_method');
+
+        $this->updateProduct($data, $room->id);
+
+        $request->session()->flash('message', 'Update successful');
+        return redirect()->route('admin.rooms.edit', $id);
 
     }
+
+     public function updateProduct(array $params, int $id) : bool
+    {
+        $rm = Rooms::find($id);
+
+        try {
+            if (isset($params['image']) && is_array($params['image'])) {
+                $this->saveRmImages($params, $rm);
+            }
+            return $this->update($params, $id);
+        } catch (QueryException $e) {
+            throw new InvalidArgumentException($e->getMessage());
+        }
+    }
+
+
+      private function saveRmImages(array $params, Rooms $rm): void
+      {
+        collect($params['images'])->each(function (UploadedFile $file) use ($rm) {
+            $filename = $file->store('roomImages', ['disk' => 'public']);
+            $image = new rumimages(['source' => $filename]);
+            $rm->images()->save($image);
+        });
+      }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -166,5 +213,18 @@ class RoomsController extends Controller
     {
         //
 
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function removeThumbnail(Request $request)
+    {
+        $src=$request->input('source');
+        $image=DB::table('rumimages')->where('source', $src);
+        $image->delete();
+        request()->session()->flash('message', 'Image delete successful');
+        return redirect()->back();
     }
 }

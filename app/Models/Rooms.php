@@ -15,6 +15,10 @@ class Rooms extends Model
      'apartments_id','room_no','type','price'
     ];
 
+    public function images(){
+      return $this->hasMany('App\Models\rumimages','rooms_id');
+    }
+
     public function apartment(){
       return $this->belongsTo('App\Models\Apartments','apartments_id');
     }

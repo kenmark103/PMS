@@ -10,7 +10,9 @@ class rumimages extends Model
     protected $fillable=[
       'rooms_id','source',
     ];
-    public function apartment(){
+
+    
+    public function room(){
       return $this->belongsTo('App\Models\Rooms','rooms_id');
     }
 }

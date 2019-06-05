@@ -4,42 +4,6 @@
   <?php if ($apartments): ?>
     <div class="apartments-cover container-fluid">
       <div class="heading row shadow-sm">
-        <div class="subheading col-md-3 py-2">
-          <h3 class="">Apartments</h3>
-        </div>
-        <div class="search-container col-md-9 py-2">
-          <strong>Filter room</strong>
-          <select class="select" name="">
-            <option value="">Apartment</option>
-            <option value="">Awesome</option>
-            <option value="">Royals</option>
-            <option value="">Pink</option>
-            <option value="">Blacks</option>
-            <option value="">Legends</option>
-          </select>
-          <select class="select" name="">
-            <option value="">Location</option>
-            <option value="">Narok</option>
-            <option value="">Eldoret</option>
-            <option value="">Juja</option>
-            <option value="">Mombasa</option>
-            <option value="">Nairobi</option>
-          </select>
-          <select class="select" name="">
-            <option value="">price</option>
-            <option value="">10,000</option>
-            <option value="">20,000</option>
-            <option value="">30,000</option>
-            <option value="">above</option>
-          </select>
-          <select class="select" name="">
-            <option value="">type</option>
-            <option value="">bedsitter</option>
-            <option value="">1 bedroom</option>
-            <option value="">2 bedroom</option>
-          </select>
-          <button type="submit" name="button" class="btn btn-default">Search</button>
-        </div>
       </div>
       <div class="row">
         <?php foreach ($apartments as $apartment): ?>
