@@ -13,6 +13,6 @@ $factory->define(Admins::class, function (Faker $faker) {
       'email' => $faker->unique()->lastName.'@admin.pms.com',
       'phonenumber'=>random_int(0700207435,0700207666),
       'password' => $password ?: $password = bcrypt('secret'),
-      'roles_id' => 2,
+      'roles_id' => 1,
     ];
 });
