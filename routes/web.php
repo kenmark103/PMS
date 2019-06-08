@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('/', function () {
+    return view('front.welcome');
+})->name('welcome');
 
 Auth::routes();
 Route::group(['prefix' => 'admin'],function(){
@@ -39,7 +42,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], 
 });
 
 Route::namespace('Front')->group(function () {
-    Route::get('/', 'ApartmentController@index')->name('properties.welcome');
+    Route::get('/apartments', 'ApartmentController@index')->name('properties.welcome');
     Route::get('/showrooms{id}', 'HomeController@showRoom')->name('home.showrooms');
     Route::get('/notices', 'HomeController@notices')->name('home.notices');
     Route::get('/services', 'HomeController@services')->name('home.services');

@@ -8,7 +8,7 @@ use Laravel\Scout\Searchable;
 class Bookings extends Model
 {
 
-    use Searchable;
+    
     
     //
     protected $fillable = [

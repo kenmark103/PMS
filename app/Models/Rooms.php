@@ -8,7 +8,7 @@ use Laravel\Scout\Searchable;
 class Rooms extends Model
 {
 
-	use Searchable;
+	
 
 
     protected $fillable=[

@@ -20,6 +20,10 @@
   border-radius: 50%;
 }
 
+.showapartment .house-heading {
+  color: #96312e;
+}
+
 .showapartment .caruosel-wrapper {
   margin-top: 1rem;
 }
@@ -302,9 +306,17 @@ aside .home-aside {
   color: #fff;
 }
 
-.navbar-purple {
-  background-color: #2e353d !important;
+body {
+  background-color: #f2ebe8;
 }
+
+.navbar-purple {
+  background-color: #1e0e20 !important;
+}
+
+/*
+*#2e353d
+*/
 
 .dark-purple {
   background-color: #2e353d;
