@@ -12,8 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('front.welcome');
-})->name('welcome');
+    $apartments=App\Models\Apartments::inRandomOrder()->take(4)->get();
+    return view('front.estate')->with('apartments',$apartments);
+})->name('front.welcome');
+
+Route::get('/about', function () {
+    return view('front.about');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('front.contact');
+})->name('contact');
 
 Auth::routes();
 Route::group(['prefix' => 'admin'],function(){

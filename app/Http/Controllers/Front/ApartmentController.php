@@ -22,7 +22,7 @@ class ApartmentController extends Controller
         //
 
         $apartments=Apartments::all();
-        return View::make('front.apartments',['apartments'=>$apartments]);
+        return View::make('front.property-grid',['apartments'=>$apartments]);
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends('front.layout.app')
+@extends('front.layout.app0')
 @section('content')
 <div class="content">
   <?php if ($apartments): ?>

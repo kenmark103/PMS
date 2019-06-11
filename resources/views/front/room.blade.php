@@ -1,5 +1,35 @@
-@extends('front.layout.app')
+@extends('front.layout.app0')
 @section('content')
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single">RM {{$room->room_no}}</h1>
+            <span class="color-text-a">{{$room->apartment->location}}</span>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="{{url('/')}}">Home</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="{{route('front.apartments.index')}}">Properties</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="{{route('front.apartments.show',$room->apartment->id)}}">{{$room->apartment->name}}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{$room->room_no}}
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
  <div class="container showroom col-md-11 px-2">
     <div class="row">
       <div class="box col-md-9">
@@ -38,7 +68,8 @@
     		<a href="{{route('front.home.edit',$room->id)}}" class="btn btn-success">book room</a>
     	</div>
     </div>
-        <div class="box-footer">
-        	
+        <div class="box-footer">	
         </div>
+    </div>
+</div>
 @endsection

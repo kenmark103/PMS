@@ -1,5 +1,6 @@
-@extends('front.layout.app')
+@extends('front.layout.app0')
 @section('content')
+<section class="intro-single">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -20,4 +21,5 @@
         </div>
     </div>
 </div>
+</section>
 @endsection

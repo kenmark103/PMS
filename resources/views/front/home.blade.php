@@ -1,5 +1,7 @@
-@extends('front.layout.app')
+@extends('front.layout.app0')
 @section('content')
+<section class="intro-single">
+</section>
   <div class="row">
   <aside class="home-aside left col-md-3">
     <div class="nav-side-menu">
@@ -52,7 +54,7 @@
          <div class="row">
           @foreach($apartments as $apartment)
            <a href="{{route('front.apartments.show',$apartment->id)}}" class="col-md-3">
-             <img src="{{asset("storage/$apartment->cover")}}" style="width:100%; height: 10em;">
+             <img src="{{asset("storage/$apartment->cover")}}" style="width:100%; height: 10em; border-radius:50%;">
              <caption class="text-center">{{$apartment->name}}</caption>
            </a>
            @endforeach
