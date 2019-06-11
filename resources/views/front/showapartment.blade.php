@@ -36,10 +36,11 @@
       </div>
     </div>
   </section>
-  <div class="container showapartment col-md-11 px-2">
+
+  <div class="container showapartment col-md-10 px-2 col-md-offset-2">
     <div class="row">
       <div class="box col-md-9">
-        
+
         @include('shared.errors-and-messages')
 
         <div class="box-body">
@@ -90,7 +91,7 @@
 
         <div class="box-footer py-2 my-2">
           <div class="container text-container p-2">
-            <p class="text-section">{{$apartment->name}} room images <br>
+            <p class="text-section">{{$apartment->name}} room images <br></p>
             </div>
           <div class="caruosel-wrapper">
             <?php if (isset($roomImages)): ?>
@@ -152,5 +153,6 @@
       </aside>
     </div>
   </div>
+
 <?php endif; ?>
 @endsection
