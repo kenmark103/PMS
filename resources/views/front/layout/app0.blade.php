@@ -153,17 +153,17 @@
       </button>
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link text-white active" href="{{url('/')}}">Home</a>
+          <li class="nav-item ">
+            <a class="nav-link text-white {{ Request::is('') ? 'active' : '' }}" href="{{url('/')}}">Home</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link text-white {{ Request::is('about*') ? 'active' : '' }}" href="{{route('about')}}">About</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link text-white {{ Request::is('apartments*') ? 'active' : '' }}" href="{{route('front.apartments.index')}}">Property</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="{{route('about')}}">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="{{route('front.apartments.index')}}">Property</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="{{route('contact')}}">Contact</a>
+            <a class="nav-link text-white {{ Request::is('contact*') ? 'active' : '' }}" href="{{route('contact')}}">Contact</a>
           </li>
         </ul>
       </div>
