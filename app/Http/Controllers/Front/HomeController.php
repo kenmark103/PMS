@@ -10,6 +10,8 @@ use App\Models\room_payments;
 use App\Models\Payments;
 use Auth;
 use App\User;
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
 
 class HomeController extends Controller
 {
@@ -31,6 +33,7 @@ class HomeController extends Controller
     public function index()
     {
         $apartments= Apartments::inRandomOrder()->take(4)->get();
+        $freeApartments= Apartments::all();
         $user=auth()->user();
         if ($user->rooms) {
           $room = $user->rooms->first();
@@ -39,6 +42,7 @@ class HomeController extends Controller
           'room'=>$room,
           'user'=>$user,
           'apartments'=>$apartments,
+          'free'=>$freeApartments
         ]);
     }
     public function create()
@@ -57,16 +61,37 @@ class HomeController extends Controller
       $this->validate($request,[
           'users_id'=>'required',
           'amount'=>'required|regex:/^\d+(\.\d{1,2})?$/',
-          'uniqueid'=>'required|min:6|alpha_num|unique:payments',
+          'uniqueid'=>'required|min:6|max:12|alpha_num|unique:payments',
       ]);
 
       $data=$request->except('_token','_method');
+      $data['uniqueid']=strtoupper($request->uniqueid);
       $newPayment= new Payments($data);
       $newPayment->save();
 
-      return redirect()->route('front.home.show',auth()->id())->with('success','your payment has been added succesfully');
+      return redirect()->route('front.home.show',auth()->id())
+      ->with('success','your payment has been added succesfully');
 
 
+    }
+
+    public function mpesapi(Request $request)
+    {
+        $this->validate($request,[
+          'account'=>'required|min:8',
+          'phone'=>'required|min:10',
+          'amounta'=>'required|regex:/^\d+(\.\d{1,2})?$/',
+          'pin'=>'required|min:4|int',
+      ]);
+
+      $data=$request->except('_token','_method');
+      $data['users_id']=auth()->id();
+      $data['uniqueid']=strtoupper('API'.Str::random(5));
+      $data['amount']=$request->amounta;
+      $newPayment= new Payments($data);
+      $newPayment->save();
+      return redirect()->route('front.home.show',auth()->id())
+      ->with('success','your payment has been added succesfully');
     }
 
     /**
@@ -104,10 +129,29 @@ class HomeController extends Controller
     public function services()
     {
         //
-     
+        $user=auth()->user();
+        $room=$user->rooms->first();
+
+        if ($room->apartment) 
+        {
+            # code...
+            $services=$room->apartment->description;
+            if (is_null($services)) {
+                # code...
+                $services='no services available';
+            }
+        }
         return view('front.homextends.services',[
-          
+         'services'=>$services, 
         ]);
+    }
+
+    public function get_by_apartment($id)
+    {
+
+         $rooms = Rooms::whereDoesntHave('tenants', function(Builder $query){
+            $query->where('apartments_id',$id);})->get();
+        return response()->json($rooms);
     }
 
     /**

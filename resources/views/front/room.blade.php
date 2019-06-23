@@ -67,9 +67,14 @@
     	<div class="my-2 py-2">
     		<a href="{{route('front.home.edit',$room->id)}}" class="btn btn-success">book room</a>
     	</div>
-    </div>
-        <div class="box-footer">	
+        <div class="box-side my-4 py-3">
+        <h5>Room details</h5>
+        <label for="type">Type</label>
+        <p id="type">{{$room->type}}</p>
+        <label for="price">Price</label>
+        <p id="price">{{$room->price}}</p>  
         </div>
+    </div>
     </div>
 </div>
 @endsection

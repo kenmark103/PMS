@@ -2,7 +2,7 @@
 @section('main')
 
 <div class="box no-border" style="height: 100vh;">
-  <h4 class="py-2">my rooms</h4>
+  <h4 class="py-2 text-me">my rooms</h4>
  <div class="box-body">
    <table class="table">
      <tbody>
@@ -15,12 +15,13 @@
      </tbody>
      <tbody>
        @if(isset($myrooms))
-       <tr>
          @foreach($myrooms as $room)
+        <tr>
         <td>{{$room->room->room_no}}</td>
         <td>{{$room->room->apartment->name}}</td>
         <td>{{date('d M Y - H:i:s', $room->created_at->timestamp) }}</td>
         <td>{{ date('d M Y', strtotime($room->expirydate)) }}</td>
+        </tr>
         @endforeach
        </tr>
        @endif

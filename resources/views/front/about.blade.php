@@ -32,7 +32,7 @@
             <img src="bootstrap/img/slide-about-1.jpg" alt="" class="img-fluid">
           </div>
           <div class="sinse-box">
-            <h3 class="sinse-title">EstateAgency
+            <h3 class="sinse-title">RentalsAgency
               <span></span>
               <br> Sinse 2017</h3>
             <p>Art & Creative</p>
@@ -45,7 +45,7 @@
             </div>
             <div class="col-lg-2  d-none d-lg-block">
               <div class="title-vertical d-flex justify-content-start">
-                <span>EstateAgency Exclusive Property</span>
+                <span>RentalsAgency Exclusive Property</span>
               </div>
             </div>
             <div class="col-md-6 col-lg-5 section-md-t3">
@@ -54,18 +54,10 @@
                   <span class="color-d">porttitor</span> lectus
                   <br> nibh.</h3>
               </div>
+              <p class="color-text-a">Ashe Rental Agency provides comprehensive property management services for owners who have single family homes, apartment complexes, and commercial rentals to market. Our goal is simple – superior service with a personal feel. We manage rental properties from every corner of Ashe County – from Fleetwood to Creston, from West Jefferson and Jefferson, to Laurel Springs and Grassy Creek 
               <p class="color-text-a">
-                Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vivamus magna justo, lacinia eget
-                consectetur sed, convallis
-                at tellus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum
-                ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit
-                neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
+                – we are here to offer the best property management and representation in the area. We have extensive resources and expertise in this area, which gives us an edge over our competitors. We offer complete accessibility to all tenants, with hands-on customer service and 24-hour emergency maintenance. We help our owners maximize their investment to keep their portfolio on the upside, garnering the best returns. Our property management solutions not only exceed, but surpass every expectation. From marketing, maintenance, and tenant interaction, you will be pleased with our delivery.
               </p>
-              <p class="color-text-a">
-                Sed porttitor lectus nibh. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.
-                Mauris blandit aliquet
-                elit, eget tincidunt nibh pulvinar a. Vivamus magna justo, lacinia eget consectetur sed,
-                convallis at tellus.
               </p>
             </div>
           </div>

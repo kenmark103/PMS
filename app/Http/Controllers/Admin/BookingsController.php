@@ -80,7 +80,12 @@ class BookingsController extends Controller
       {
         
 
-        $payment=Payments::where('users_id',$params['users_id'])->first();
+        $payment=Payments::where([
+            'users_id'=>$params['users_id'],
+            'status'=> 1,
+        ])->first();
+
+        //dd($payment);
 
         if (is_null($payment)) {
             # code...

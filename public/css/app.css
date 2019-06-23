@@ -204,6 +204,11 @@ aside .home-aside {
   vertical-align: middle;
 }
 
+.nav-side-menu a .active {
+  border-left: 3px solid #d19b3d;
+  background-color: #4f5b69;
+}
+
 .nav-side-menu li {
   padding-left: 0px;
   border-left: 3px solid #2e353d;
@@ -259,6 +264,14 @@ aside .home-aside {
 @media (min-width: 767px) {
   .nav-side-menu .menu-list .menu-content {
     display: block;
+  }
+}
+
+@media (min-width: 767px) {
+  .nav-side-menu {
+    display: block;
+    position: fixed;
+    top: 100px;
   }
 }
 
@@ -323,7 +336,7 @@ body {
 }
 
 .text-white {
-  color: #f2f2f2 !important;
+  color: #f2f2f2;
 }
 
 .text-me {

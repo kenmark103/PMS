@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use App\Http\Controllers\Controller;
 use App\Shop\Tools\UploadableTrait;
 use Illuminate\Http\UploadedFile;
 use App\Models\Apartments;
@@ -17,22 +17,23 @@ use App\Http\Requests\UpdateRoomRequest;
 
 class RoomsController extends Controller
 {
+
+     public function __construct(){
+
+        $this->middleware('admin');
+
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
-
-    	$this->middleware('admin');
-
-    }
     public function index()
     {
-
-      $user=Auth::guard('admin')->user();
-      $apartment=$user->apartment;
-      if (!isset($apartment) && !$user->isSuperAdmin()) {
+        $user=Auth::guard('admin')->user();
+        $apartment=$user->apartment;
+        if (!isset($apartment) && !$user->isSuperAdmin()) {
         // code...
         return redirect()->back()->with('error','no apartment assigned');
       }
@@ -57,24 +58,6 @@ class RoomsController extends Controller
       ]);
     }
 
-    public function show($id)
-    {
-      
-
-    }
-    public function showRoom($id)
-    {
-        $apartment=Apartments::find($id);
-      $rooms=$apartment->rooms->load('tenants','tenants.user');
-      return view('admin.rooms.list',[
-        'apartment'=>$apartment,
-        'rooms'=>$rooms,
-    ]);
-
-
-    }
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -83,7 +66,7 @@ class RoomsController extends Controller
     public function create()
     {
         //
-        $admin=auth('admin')->user()->isSuperAdmin();
+         $admin=auth('admin')->user()->isSuperAdmin();
         if ($admin) {
           $apartments=Apartments::all();
         }
@@ -105,6 +88,7 @@ class RoomsController extends Controller
     public function store(Request $request)
     {
         //
+
         $this->validate($request,[
             'apartment'=>'required',
             'roomnumber'=>'required|unique:rooms,apartments_id,room_no',
@@ -129,23 +113,43 @@ class RoomsController extends Controller
             'success'=>'your room has been added succesfully',
         ]);
 
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Rooms  $rooms
      * @return \Illuminate\Http\Response
      */
-
+    public function show($id)
+    {
+        //
+        $room=Rooms::find($id);
+        $firstImage=$room->images->first();
+        return view('admin.rooms.show',[
+          'room'=>$room,
+          'images' => $room->images()->get(['source']),
+          'firstImage'=>$firstImage,
+        ]);
+    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Rooms  $rooms
      * @return \Illuminate\Http\Response
      */
+     public function showRoom($id)
+    {
+        $apartment=Apartments::find($id);
+      $rooms=$apartment->rooms->load('tenants','tenants.user');
+      return view('admin.rooms.list',[
+        'apartment'=>$apartment,
+        'rooms'=>$rooms,
+    ]);
+
+
+    }
     public function edit($id)
     {
         //
@@ -160,29 +164,30 @@ class RoomsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Rooms  $rooms
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRoomRequest $request, $id)
+    public function update(Request $request, $id)
     {
         //
+
         $room = Rooms::find($id);
 
         $data = $request->except('_token', '_method');
 
-        $this->updateProduct($data, $room->id);
+        $this->updateRoom($data, $room->id);
 
         $request->session()->flash('message', 'Update successful');
         return redirect()->route('admin.rooms.edit', $id);
 
     }
 
-     public function updateProduct(array $params, int $id) : bool
+    public function updateRoom(array $params, int $id) : bool
     {
         $rm = Rooms::find($id);
 
         try {
-            if (isset($params['image']) && is_array($params['image'])) {
+            if (isset($params['images']) && is_array($params['images'])) {
                 $this->saveRmImages($params, $rm);
             }
             return $this->update($params, $id);
@@ -192,33 +197,25 @@ class RoomsController extends Controller
     }
 
 
-      private function saveRmImages(array $params, Rooms $rm): void
-      {
+    private function saveRmImages(array $params, Rooms $rm): void
+    {
         collect($params['images'])->each(function (UploadedFile $file) use ($rm) {
             $filename = $file->store('roomImages', ['disk' => 'public']);
             $image = new rumimages(['source' => $filename]);
             $rm->images()->save($image);
         });
-      }
-
-
+    }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Rooms  $rooms
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Rooms $rooms)
     {
         //
-
     }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function removeThumbnail(Request $request)
     {
         $src=$request->input('source');

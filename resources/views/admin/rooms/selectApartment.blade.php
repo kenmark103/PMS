@@ -91,7 +91,7 @@
                    <h2>select apartment</h2><small class="small-danger">note:you can only view your apartment as caretaker or admin</small>
                    <!--include('layouts.search', ['route' => route('admin.customers.index')])-->
                    <div class="container">
-                    <ul class="apts inline">
+                    <ul class="apts row">
                       @foreach($apartments as $apartment)
                       <li class="apt">
                         <input type="checkbox" id="{{$apartment->name}}" class="apt-input radio">

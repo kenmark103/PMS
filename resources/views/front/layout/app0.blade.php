@@ -73,10 +73,13 @@
               <label for="city">City</label>
               <select class="form-control form-control-lg form-control-a" id="city">
                 <option>All City</option>
-                <option>Alabama</option>
-                <option>Arizona</option>
-                <option>California</option>
-                <option>Colorado</option>
+                <option>Nairobi</option>
+                <option>Nakuru</option>
+                <option>Kisumu</option>
+                <option>Mombasa</option>
+                <option>Narok</option>
+                <option>Juja</option>
+                <option>Thika</option>
               </select>
             </div>
           </div>
@@ -154,7 +157,7 @@
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
           <li class="nav-item ">
-            <a class="nav-link text-white {{ Request::is('') ? 'active' : '' }}" href="{{url('/')}}">Home</a>
+            <a class="nav-link text-white {{ Request::is('/') ? 'active' : '' }}" href="{{url('/')}}">Home</a>
           </li>
           <li class="nav-item ">
             <a class="nav-link text-white {{ Request::is('about*') ? 'active' : '' }}" href="{{route('about')}}">About</a>
@@ -219,19 +222,19 @@
           <nav class="nav-footer">
             <ul class="list-inline">
               <li class="list-inline-item">
-                <a href="#">Home</a>
+                <a href="{{route('front.welcome')}}">Home</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">About</a>
+                <a href="{{route('about')}}">About</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">Property</a>
+                <a href="{{route('front.apartments.index')}}">Property</a>
               </li>
               <li class="list-inline-item">
                 <a href="#">Blog</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">Contact</a>
+                <a href="{{route('contact')}}">Contact</a>
               </li>
             </ul>
           </nav>

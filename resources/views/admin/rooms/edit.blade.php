@@ -14,7 +14,7 @@
     <section class="content">
         @include('shared.errors-and-messages')
         <div class="box">
-            <form action="{{ route('admin.rooms.update', $room->id) }}" method="post" class="form" enctype="multipart/form-data">
+            <form action="{{ route('admin.rooms.update', $room['id']) }}" method="post" class="form" enctype="multipart/form-data">
                 <div class="box-body">
                     <div class="row">
                         @csrf

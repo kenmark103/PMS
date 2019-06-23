@@ -1,5 +1,6 @@
 @extends('admin.main.app')
 @section('content')
+
 <div class="content-wrapper">
     <section class="content-header">
       <h1>
@@ -13,8 +14,9 @@
     <!-- Main content -->
     <section class="content">
         @include('shared.errors-and-messages')
+        @isset($customer)
         <div class="box">
-            <form action="{{ route('admin.customers.update', $customer->id) }}" method="post" class="form">
+            <form action="{{ route('admin.customers.update', $customer['id']) }}" method="post" class="form">
                 <div class="box-body">
                   <h2>Customer edit</h2>
                     {{ csrf_field() }}
@@ -56,7 +58,7 @@
             </form>
         </div>
         <!-- /.box -->
-
+        @endif
     </section>
     <!-- /.content -->
   </div>

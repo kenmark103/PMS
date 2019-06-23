@@ -137,6 +137,11 @@ class ApartmentsController extends Controller
     public function edit($id)
     {
         //
+        $apartment=Apartments::find($id);
+        return view('admin.apartments.edit',[
+          'apartment'=>$apartment,
+          'images' => $apartment->roomImages()->get(['source']),
+        ]);
     }
 
     /**

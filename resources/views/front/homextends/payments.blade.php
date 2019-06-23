@@ -1,7 +1,7 @@
 @extends('front.home')
 @section('main')
 <div class="box no-border" style="height: 100vh;">
-  <h4 class="py-2">my payments</h4>
+  <h4 class="py-2 text-me">my payments</h4>
  <div class="box-body">
    <table class="table">
      <tbody>
@@ -14,14 +14,14 @@
      </tbody>
      <tbody>
        @if(isset($mypayments))
-       <tr>
-         @foreach($mypayments as $payment)
+        @foreach($mypayments as $payment)
+        <tr>
         <td>{{$payment->user->name}}</td>
         <td>{{date('d M Y - H:i:s', $payment->created_at->timestamp) }}</td>
         <td>{{$payment->uniqueid}}</td>
         <td>{{$payment->amount}}</td>
+        </tr>
         @endforeach
-       </tr>
        @endif
      </tbody>
    </table>

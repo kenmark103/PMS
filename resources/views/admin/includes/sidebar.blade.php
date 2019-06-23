@@ -97,7 +97,7 @@
 <?php if (auth('admin')->user()->isSuperAdmin()): ?>
       <li class="treeview">
         <a href="">
-          <i class="fa fa-laptop"></i>
+          <i class="fa fa-user"></i>
           <span>Employees</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>

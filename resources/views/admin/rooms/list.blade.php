@@ -38,6 +38,10 @@
        @if($rooms)
            <div class="box">
                <div class="box-body">
+                <ol class="breadcrumb pull-right">
+                    <li><a href="{{route('admin.rooms.index')}}">Apartments</a></li>
+                    <li class="active">Rooms</li>
+                  </ol>
                    <h2>{{$apartment->name}} rooms</h2>
                    <!--include('layouts.search', ['route' => route('admin.customers.index')])-->
                    <div class="rooms-container container-fluid">
@@ -52,6 +56,7 @@
                                 <div class="modal-header">
                                     <h4 class="modal-title">{{$room->room_no}}</h4>
                                     <a href="{{route('admin.rooms.edit',$room->id)}}" class="btn btn-default btn-sm">edit</a>
+                                    <a href="{{route('admin.rooms.show',$room->id)}}" class="btn btn-default btn-sm">show</a>
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
@@ -100,12 +105,10 @@
                          @endforeach
                       </div>
                     </div>
-                   <table>
-                    <tr></tr>
-                      <a href="{{route('admin.rooms.create')}}" onclick="return confirm('Are you sure?')" type="link" class="btn btn-danger btn-sm"><i class="fa fa-box"></i> Add New Room To Apartment</a>
-                  </table>
+                    <a href="{{route('admin.rooms.create')}}" onclick="return confirm('Are you sure?')" type="link" class="btn btn-danger btn-sm" style="margin-top: 1em;"><i class="fa fa-box"></i> Add New Room To Apartment</a>
                </div>
                <!-- /.box-body -->
+
            </div>
            <!-- /.box -->
        @endif

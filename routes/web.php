@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    $apartments=App\Models\Apartments::inRandomOrder()->take(4)->get();
+    $apartments=App\Models\Apartments::inRandomOrder()->take(6)->get();
     return view('front.estate')->with('apartments',$apartments);
 })->name('front.welcome');
 
@@ -53,8 +53,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], 
 Route::namespace('Front')->group(function () {
     Route::get('/apartments', 'ApartmentController@index')->name('properties.welcome');
     Route::get('/showrooms{id}', 'HomeController@showRoom')->name('home.showrooms');
+    Route::post('/api', 'HomeController@mpesapi')->name('home.mpesa');
     Route::get('/notices', 'HomeController@notices')->name('home.notices');
     Route::get('/services', 'HomeController@services')->name('home.services');
+    Route::get('/get_by_apartment{id}', 'HomeController@get_by_apartment')->name('front.home.getroom');
 
     Route::group(['as' => 'front.' ], function ()
      {

@@ -10,6 +10,7 @@ use View;
 use App\Models\Tenant;
 use App\Models\room_payments;
 use App\Models\Rooms;
+use App\Models\Admins;
 use App\User;
 use carbon\carbon;
 
@@ -31,8 +32,11 @@ class PaymentsController extends Controller
 
         //Occupied and Unoccupied rooms
         $rooms=Rooms::all()->pluck('price');
+
         $occupiedRooms=Tenant::all();
+        
         $unoccupiedRooms=Rooms::doesntHave('users')->get();
+        
         $unoccupiedRoomsCount=$rooms->count()-$occupiedRooms->count();
         //dd($unoccupiedRooms);
         //Account Statement
@@ -72,10 +76,12 @@ class PaymentsController extends Controller
         foreach ($apartments as $apartment => $ap) {
             # code...
             $revenue=array();
+            
             foreach ($ap->tenants as $ap) {
                 # code...
                 $revenue[]=$ap->room->price;
             }
+
             $totalrevenue=array_sum($revenue);
         }
 
@@ -136,7 +142,8 @@ class PaymentsController extends Controller
         $newPayment= new Payments($data);
         $newPayment->save();
 
-        return redirect()->route('admin.payments.show',auth('admin')->id())->with('message','payment has been added');
+        return redirect()->route('admin.payments.show',auth('admin')->id())
+        ->with('message','payment has been added');
     }
 
     /**
@@ -148,7 +155,7 @@ class PaymentsController extends Controller
     public function show($id)
     {
         //
-        $user=User::find($id);
+        $admin=Admins::find($id);
         if (request()->has('q')) {
             $payments = Payments::search(request()->input('q'))->paginate(10);
         }
