@@ -37,12 +37,17 @@
    <!-- Default box -->
        @if($rooms)
            <div class="box">
-               <div class="box-body">
-                <ol class="breadcrumb pull-right">
+            <div class="box-header">
+              <ol class="breadcrumb pull-right">
                     <li><a href="{{route('admin.rooms.index')}}">Apartments</a></li>
                     <li class="active">Rooms</li>
                   </ol>
-                   <h2>{{$apartment->name}} rooms</h2>
+              <div class="btn-group">
+              <h2 class="text-me">{{$apartment->name}}</h2>
+              <a href="{{route('admin.rooms.create')}}" onclick="return confirm('Are you sure?')" type="sure" class="btn btn-secondary btn-sm" style="margin-top: 1em;"><i class="fa fa-hotel fa-sm"></i> Add New Room</a>
+              </div>
+            </div>
+               <div class="box-body">
                    <!--include('layouts.search', ['route' => route('admin.customers.index')])-->
                    <div class="rooms-container container-fluid">
                       <div class="row">
@@ -105,9 +110,13 @@
                          @endforeach
                       </div>
                     </div>
-                    <a href="{{route('admin.rooms.create')}}" onclick="return confirm('Are you sure?')" type="link" class="btn btn-danger btn-sm" style="margin-top: 1em;"><i class="fa fa-box"></i> Add New Room To Apartment</a>
                </div>
                <!-- /.box-body -->
+               <div class="box-footer">
+                    <div class="btn-group">
+                        <a href="{{ URL:: previous() }}" class="btn btn-default">Close</a>
+                    </div>
+               </div>
 
            </div>
            <!-- /.box -->

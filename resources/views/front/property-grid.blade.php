@@ -52,7 +52,7 @@
               <div class="card-overlay-a-content">
                 <div class="card-header-a">
                   <h2 class="card-title-a">
-                    <a href="{{route('front.apartments.show',$apartment->id)}}"><span class="text-me"> {{$apartment->name}}</span>
+                    <a href="{{route('front.apartments.show',$apartment->id)}}"><span class="text-whatever"> {{$apartment->name}}</span>
                       <br /><small>{{$apartment->location}}</small></a>
                   </h2>
                 </div>
